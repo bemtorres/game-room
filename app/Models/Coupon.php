@@ -19,4 +19,8 @@ class Coupon extends Model
     $p = new Currency($this->price);
     return $p->money();
   }
+
+  public function coupons_users(){
+    return $this->hasMany(CouponUser::class,'coupon_id')->with(['usuario'])->orderBy('created_at','desc');
+  }
 }

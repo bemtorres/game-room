@@ -20,6 +20,8 @@ Route::middleware('usuario')->group( function () {
 
   Route::resource('cupons', 'Admin\CuponController');
   Route::put('cupon/active', 'Admin\CuponController@active')->name('cupon.active');
+  Route::get('cupon/{id}/people', 'Admin\CuponController@people')->name('cupon.people');
+
   Route::resource('usuarios', 'Admin\UsuarioController');
   Route::get('usuario/admin', 'Admin\UsuarioController@admin')->name('user.admin');
   Route::get('usuario/masiva', 'Admin\UsuarioController@masiva')->name('user.masiva');

@@ -5,12 +5,9 @@
 @section('content')
 <main class="content">
   <div class="container-fluid p-0">
-
-    <h1 class="h3 mb-3"><strong>Cupones</strong></h1>
-    @include('cupon._tabs')
-
+    @include('cupon._tabs_cupon')
     <div class="row">
-      <div class="col-12 col-lg-12 col-xxl-12 d-flex">
+      <div class="col-4 col-lg-4 col-xxl-4 d-flex">
         <div class="card flex-fill">
           <div class="card-body">
             <table class="table table-hover">
@@ -18,40 +15,14 @@
                 <tr>
                   <th>#</th>
                   <th>Nombre</th>
-                  <th>Código</th>
-                  <th>Password</th>
-                  <th>Usuarios</th>
-                  <th>
-                    <img src="{{ asset('RoomGame.svg') }}" width="20" height="20" class="ms-2" />
-                    Credito
-                  </th>
-                  <th></th>
                 </tr>
               </thead>
               <tbody>
-                @foreach ($cupones as $c)
-                <tr>
-                  <th>{{ $c->id }}</th>
-                  <td>
-                    <a href="{{ route('cupons.edit',$c->id) }}">
-                      {{ $c->name }}
-                    </a>
-                  </td>
-                  <td>{{ $c->code }}</td>
-                  <td>{{ $c->password }}</td>
-                  <td>
-                    <i class="fa fa-users"></i> {{ $c->cont_users }}
-                  </td>
-                  <td>
-                    <img src="{{ asset('RoomGame.svg') }}" width="20" height="20" class="ms-2" />
-                    {{ $c->getPrice() }}
-                  </td>
-                  <td>
-                    <span type="button" class="badge bg-{{ $c->active ? 'success' : 'danger' }}" data-bs-toggle="modal" data-bs-target="#newModal" data-id="{{ $c->id }}">
-                      {{ $c->active ? 'Activo' : 'Desactivado' }}
-                    </span>
-                  </td>
-                </tr>
+                @foreach ($c->coupons_users as $key => $r)
+                    <tr>
+                        <th>{{ $key+1 }}</th>
+                        <td>{{ $r->usuario->name }}</td>
+                    </tr>
                 @endforeach
               </tbody>
             </table>

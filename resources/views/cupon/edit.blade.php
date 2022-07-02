@@ -5,17 +5,10 @@
 @section('content')
 <main class="content">
   <div class="container-fluid p-0">
-
-    <h1 class="h3 mb-3"><strong>Cupones</strong></h1>
-    @include('cupon._tabs')
-
-
+    @include('cupon._tabs_cupon')
     <div class="row">
       <div class="col-6 d-flex">
         <div class="card flex-fill">
-          <div class="card-header">
-            {{-- <h5 class="card-title mb-0">Latest Projects</h5> --}}
-          </div>
           <form class="form-submit" action="{{ route('cupons.update',$c->id) }}" method="post">
             @csrf
             @method('PUT')

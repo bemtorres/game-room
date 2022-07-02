@@ -8,10 +8,11 @@
         <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
           <div class="d-table-cell align-middle">
             <div class="text-center mb-4">
-              <h1 class="h2">Welcome to <strong>Edugestion</strong></h1>
-              {{-- <p class="lead">
-                de <a href="https://www.dinobox.cl/">Dinobox.cl</a>
-              </p> --}}
+              <h1 class="h2">Welcome to <strong>GameRoom</strong> 🎮 🕹️</h1>
+              <p class="lead">
+                Un sistema contable para todo tipo de juegos de mesas
+                ♣️♥️♦️
+              </p>
             </div>
 
             <div class="card">
@@ -24,15 +25,14 @@
                     @csrf
                     <div class="mb-3">
                       <label class="form-label">Email</label>
-                      <input class="form-control form-control-lg" type="email" name="email" value="" placeholder="Enter your email" />
+                      <input class="form-control form-control-lg" type="email" name="email" value="" placeholder="Ingresa tu correo" autocomplete="off" required />
                     </div>
                     <div class="mb-3">
                       <label class="form-label">Password</label>
-                      <input class="form-control form-control-lg" type="password" name="password"
-                        value="" placeholder="Enter your password" />
+                      <input class="form-control form-control-lg" type="password" name="password" value="" placeholder="*********" autocomplete="off" required />
                     </div>
-                    <div class="text-center mt-3">
-                      <button type="submit" class="btn btn-lg btn-primary"><strong>ENTRAR</strong></button>
+                    <div class="text-center mt-3 d-grid gap-2">
+                      <button type="submit" class="btn btn-lg btn-block btn-dark"><strong>JOIN</strong></button>
                     </div>
                   </form>
                 </div>

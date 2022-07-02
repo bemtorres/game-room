@@ -18,7 +18,7 @@ class CuponController extends Controller
 
   public function index() {
     $this->policy->admin();
-    $cupones = Coupon::get();
+    $cupones = Coupon::orderBy('id', 'desc')->get();
     return view('cupon.index',compact('cupones'));
   }
 
@@ -72,5 +72,11 @@ class CuponController extends Controller
     $c->update();
 
     return back()->with('success','se ha creado correctamente');
+  }
+
+  public function people($id) {
+    $this->policy->admin();
+    $c = Coupon::findOrFail($id);
+    return view('cupon.people',compact('c'));
   }
 }

@@ -50,7 +50,7 @@
                 </a>
                 @else
                   <a class="btn btn-dark" {{ $r->status == 1 ? 'disabled' : '' }} href="{{ route('game.show', $r->id) }}">
-                    <strong>JUGAR POR <i class="fab fa-gg-circle text-warning m-2"></i>{{ $r->getPrice() }}</strong>
+                    <strong>JUGAR POR <img src="{{ asset('RoomGame.svg') }}" width="20" height="20" class="m-2" />{{ $r->getPrice() }}</strong>
                   </a>
                 @endif
               @endif

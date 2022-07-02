@@ -20,7 +20,7 @@
                   <th>Nombre</th>
                   <th>Password</th>
                   <th>Usuarios</th>
-                  <th><i class="fab fa-gg-circle text-warning ms-2"></i> Credito</th>
+                  <th><img src="{{ asset('RoomGame.svg') }}" width="20" height="20" class="ms-2" />Credito</th>
                   <th></th>
                 </tr>
               </thead>

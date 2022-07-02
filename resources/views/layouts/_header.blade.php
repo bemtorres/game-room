@@ -47,7 +47,7 @@
 
       <li class="sidebar-item {{ activeTab("cuenta*") }}">
         <a class="sidebar-link" href="{{ route('cuenta') }}">
-          <i class="align-middle fab fa-2x fa-gg-circle text-warning ms-1"></i>
+          <img src="{{ asset('RoomGame.svg') }}" width="30" height="30" class="align-middle me-1" />
           <span class="align-middle">Mi cuenta</span>
         </a>
       </li>

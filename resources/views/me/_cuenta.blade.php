@@ -10,7 +10,9 @@
           <tr>
             <th>Fecha</th>
             <th>Descripción</th>
-            <th><i class="fab fa-gg-circle text-warning"></i> Monto</th>
+            <th>
+                <img src="{{ asset('RoomGame.svg') }}" width="20" height="20" class="ms-2" />Monto
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -24,7 +26,7 @@
             </td>
             <td class="align-middle">
               <h5>
-                <i class="fab fa-gg-circle text-warning"></i>
+                <img src="{{ asset('RoomGame.svg') }}" width="20" height="20" class="" />
                 <span class="badge bg-{{ $c->price > 0 ? 'success' : 'danger' }}">
                   {{ $c->getPrice() }}
                 </span>
