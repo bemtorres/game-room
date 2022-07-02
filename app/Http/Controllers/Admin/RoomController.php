@@ -56,7 +56,7 @@ class RoomController extends Controller
     $this->policy->admin();
 
     $r = Room::findOrFail($id);
-    $numbers_selected = $r->config['numbers'] ?? 0;
+    $numbers_selected = $r->config['numbers'] ?? [];
     // return $numbers_selected;
     return view('room.show',compact('r', 'numbers_selected'));
   }
@@ -124,7 +124,7 @@ class RoomController extends Controller
     $this->policy->admin();
     $r = Room::findOrFail($id);
     $claims = Claim::where('room_id',$r->id)->get();
-    $numbers_selected = $r->config['numbers'];
+    $numbers_selected = $r->config['numbers'] ?? [];
 
     return view('room.solicitudes',compact('r','claims','numbers_selected'));
   }
