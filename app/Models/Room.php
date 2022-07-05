@@ -37,7 +37,22 @@ class Room extends Model
     return $this->hasMany(UserRoom::class,'room_id')->with(['usuario','loto'])->orderBy('created_at','desc');
   }
 
+  public function players_bank(){
+    return $this->hasMany(UserRoom::class,'room_id')->with(['usuario'])->orderBy('created_at','desc');
+  }
+
   public function getNumberSelected() {
     return $this->config['numbers'] ?? [];
   }
+
+  //1 Lotería
+  //2 banco
+  public function getPhoto() {
+    if ($this->type == 1) {
+      return 'assets/game/loteria.svg';
+    }
+
+    return 'assets/game/banco.svg';
+  }
+
 }

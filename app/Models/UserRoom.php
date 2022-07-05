@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Casts\Json;
+use App\Services\Currency;
 use Illuminate\Database\Eloquent\Model;
 
 class UserRoom extends Model
@@ -23,4 +24,11 @@ class UserRoom extends Model
   public function loto(){
     return $this->belongsTo(LotoCard::class,'loto_id');
   }
+
+  public function getMoney() {
+    $p = new Currency($this->money);
+    return $p->money() ?? 0;
+  }
+
+  //
 }

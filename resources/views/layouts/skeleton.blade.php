@@ -29,7 +29,7 @@
   <script src="{{ mix('js/vendor.js') }}"></script>
   <script src="{{ mix('js/app.js') }}"></script>
   <script src="{{ asset('vendor/iziToast/js/iziToast.min.js') }}"></script>
-
+  <script src="{{ asset('vendor/pushmenu.js') }}"></script>
   @include('components._toast')
   @stack('javascript')
 </body>

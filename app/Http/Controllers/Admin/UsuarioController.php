@@ -202,9 +202,12 @@ class UsuarioController extends Controller
     }
   }
 
-  // public function game($id) {
-  //   $this->policy->admin();
-  //   $u = User::findOrFail($id);
-  //   return view('user.game',compact('u'));
-  // }
+  // API Collapse
+  public function collapse() {
+    $u = User::find(current_user()->id);
+    $config = $u->config;
+    $config['page_collapse'] = !$u->getPageCollapse();
+    $u->config = $config;
+    $u->update();
+  }
 }

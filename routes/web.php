@@ -12,12 +12,19 @@ Route::middleware('usuario')->group( function () {
   Route::get('trofeos','Admin\AdminController@trofeos')->name('trofeos');
   Route::post('canjear','Admin\AdminController@canjear')->name('canjear');
 
+  // GAME
+
+  // Loteria
   Route::get('game/{room_id}','Admin\GameController@show')->name('game.show');
   Route::post('game/{room_id}','Admin\GameController@enrollment')->name('game.enrollment');
   Route::get('game/{room_id}/loto/{id}','Admin\GameController@loto')->name('game.loto');
   Route::post('game/{room_id}/loto/{id}','Admin\GameController@claim')->name('game.claim');
 
+  // Banco
+  Route::get('game_banco/{room_id}','Admin\Bank\GameController@show')->name('game.bank.show');
+  Route::post('game_banco/{room_id}','Admin\Bank\GameController@enrollment')->name('game.bank.enrollment');
 
+  // Cupones
   Route::resource('cupons', 'Admin\CuponController');
   Route::put('cupon/active', 'Admin\CuponController@active')->name('cupon.active');
   Route::get('cupon/{id}/people', 'Admin\CuponController@people')->name('cupon.people');
@@ -33,14 +40,25 @@ Route::middleware('usuario')->group( function () {
 
 
   Route::resource('rooms', 'Admin\RoomController');
+
+  // Loteria
   Route::get('room/{id}/players','Admin\RoomController@players')->name('room.players');
   Route::get('room/{id}/solicitudes','Admin\RoomController@solicitudes')->name('room.solicitudes');
   Route::put('room/{id}/solicitudes','Admin\RoomController@solicitudesValidar')->name('room.solicitudes.validar');
   Route::post('room/{id}/save_numbers','Admin\RoomController@saveNumber')->name('room.number');
+
+  // Banco
+  Route::get('rooms_bank/{id}', 'Admin\Bank\RoomBankController@show')->name('rooms.bank.show');
+  Route::get('rooms_bank/{id}/players', 'Admin\Bank\RoomBankController@players')->name('rooms.bank.players');
 
 
   Route::get('loto','Admin\LotoController@index')->name('loto.index');
   Route::post('loto','Admin\LotoController@find')->name('loto.find');
   Route::get('loto/{id}','Admin\LotoController@show')->name('loto.show');
 
+
+
+
+  // API
+  Route::put('collapse','Admin\UsuarioController@collapse');
 });

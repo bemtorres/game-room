@@ -39,6 +39,7 @@ class RoomController extends Controller
     $r->password = $request->input('password');
     // $r->code = $request->input('code');
     $r->description = $request->input('description');
+    $r->type = $request->input('type');
     $r->price = $request->input('price',0);
     $r->save();
 

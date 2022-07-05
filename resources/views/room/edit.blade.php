@@ -9,9 +9,6 @@
     <div class="row">
       <div class="col-6 d-flex">
         <div class="card flex-fill">
-          <div class="card-header">
-            {{-- <h5 class="card-title mb-0">Latest Projects</h5> --}}
-          </div>
           <form class="form-submit" action="{{ route('rooms.update',$r->id) }}" method="post">
             @csrf
             @method('PUT')

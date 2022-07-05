@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand navbar-light navbar-bg">
-  <a class="sidebar-toggle js-sidebar-toggle">
+  <a class="sidebar-toggle js-sidebar-toggle" id="pushmenu">
     <i class="hamburger align-self-center"></i>
   </a>
 

@@ -33,13 +33,13 @@
               <div class="form-group row mb-3">
                 {{-- <label for="inputNombre" class="col-sm-4 col-form-label">Nombre</label> --}}
                 <div class="col-sm-12">
-                  <input type="text" class="form-control" id="inputCode" name="code" placeholder="Código de cupón" required>
+                  <input type="text" class="form-control" id="inputCode" autocomplete="off" name="code" placeholder="Código de cupón" required>
                 </div>
               </div>
               <div class="form-group row mb-3">
                 {{-- <label for="inputNombre" class="col-sm-4 col-form-label">Nombre</label> --}}
                 <div class="col-sm-12">
-                  <input type="password" class="form-control" id="inputPassword" name="password" placeholder="****">
+                  <input type="password" class="form-control" id="inputP" autocomplete="off" name="password" placeholder="****">
                 </div>
               </div>
             </div>
