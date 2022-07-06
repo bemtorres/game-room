@@ -55,4 +55,8 @@ class Room extends Model
     return 'assets/game/banco.svg';
   }
 
+  public function getBankMoney() {
+    $m = new Currency($this->banker_money ?? 0);
+    return $m->money() ?? 0;
+  }
 }

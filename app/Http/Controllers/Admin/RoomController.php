@@ -41,6 +41,11 @@ class RoomController extends Controller
     $r->description = $request->input('description');
     $r->type = $request->input('type');
     $r->price = $request->input('price',0);
+
+    if($r->type == 2) { //Solo para el banco
+      $r->banker_money = 10000000;
+    }
+
     $r->save();
 
     return redirect()->route('rooms.index')->with('success','se ha creado correctamente');

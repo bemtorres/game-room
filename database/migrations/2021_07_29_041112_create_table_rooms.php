@@ -28,7 +28,7 @@ class CreateTableRooms extends Migration
             $table->boolean('visible')->default(true);
             $table->boolean('active')->default(true);
 
-            $table->double('banker_money', 10, 2)->nullable(); //dinero del banco
+            $table->double('banker_money', 15, 2)->nullable(); //dinero del banco
 
             $table->timestamps();
         });

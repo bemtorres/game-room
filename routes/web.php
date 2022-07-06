@@ -23,6 +23,10 @@ Route::middleware('usuario')->group( function () {
   // Banco
   Route::get('game_banco/{room_id}','Admin\Bank\GameController@show')->name('game.bank.show');
   Route::post('game_banco/{room_id}','Admin\Bank\GameController@enrollment')->name('game.bank.enrollment');
+  Route::get('game_banco/{room_id}/play','Admin\Bank\GameController@play')->name('game.bank.play');
+  Route::get('game_banco/{room_id}/play_banker','Admin\Bank\GameController@playBanker')->name('game.bank.play_banker');
+  Route::post('game_banco/{room_id}/transfer','Admin\Bank\GameController@transfer')->name('game.bank.transfer');
+  Route::put('game_banco/{room_id}/profile','Admin\Bank\GameController@profile')->name('game.bank.profile');
 
   // Cupones
   Route::resource('cupons', 'Admin\CuponController');
