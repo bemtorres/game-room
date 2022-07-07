@@ -31,9 +31,15 @@
                       <label class="form-label">Password</label>
                       <input class="form-control form-control-lg" type="password" name="password" value="" placeholder="*********" autocomplete="new-password" required />
                     </div>
-                    <div class="text-center mt-3 d-grid gap-2">
+                    <div class="text-center mt-3 d-grid gap-2 mb-3">
                       <button type="submit" class="btn btn-lg btn-block btn-dark"><strong>JOIN</strong></button>
                     </div>
+
+                    @if ($r->getConfigEnableRegister())
+                      <div class="text-center mt-3 d-grid gap-2">
+                        <a href="{{ route('app.room.account', $r->url) }}" class="btn btn-lg btn-block btn-info"><strong>CREAR CUENTA</strong></a>
+                      </div>
+                    @endif
                   </form>
                 </div>
               </div>

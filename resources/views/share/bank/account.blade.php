@@ -18,11 +18,12 @@
             <div class="card">
               <div class="card-body">
                 <div class="m-sm-4">
-                  {{-- <div class="text-center">
-                    <img src="img/avatars/avatar.jpg" alt="Charles Hall" class="img-fluid rounded-circle" width="132" height="132" />
-                  </div> --}}
                   <form class="form-signin form-submit" action="{{ route('root') }}" method="post">
                     @csrf
+                    <div class="mb-3">
+                      <label class="form-label">Nombre</label>
+                      <input class="form-control form-control-lg" type="text" name="name" value="" placeholder="Ingresa tu nombre" autocomplete="new-name" required />
+                    </div>
                     <div class="mb-3">
                       <label class="form-label">Email</label>
                       <input class="form-control form-control-lg" type="email" name="email" value="" placeholder="Ingresa tu correo" autocomplete="new-email" required />
@@ -31,8 +32,12 @@
                       <label class="form-label">Password</label>
                       <input class="form-control form-control-lg" type="password" name="password" value="" placeholder="*********" autocomplete="new-password" required />
                     </div>
+                    <div class="text-center mt-3 d-grid gap-2 mb-3">
+                      <button type="submit" class="btn btn-lg btn-block btn-info"><strong>CREAR</strong></button>
+                    </div>
+
                     <div class="text-center mt-3 d-grid gap-2">
-                      <button type="submit" class="btn btn-lg btn-block btn-dark"><strong>JOIN</strong></button>
+                      <a href="{{ route('app.room.share', $r->url) }}" class="btn btn-lg btn-block btn-dark"><strong>Ya tengo cuenta</strong></a>
                     </div>
                   </form>
                 </div>

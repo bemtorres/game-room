@@ -45,7 +45,7 @@ class RoomController extends Controller
     if($r->type == 2) { //Solo para el banco
       $r->banker_money = 10000000;
     }
-
+    $r->url = time();
     $r->save();
 
     return redirect()->route('rooms.index')->with('success','se ha creado correctamente');
@@ -79,6 +79,26 @@ class RoomController extends Controller
     $r->price = $request->input('price',0);
     $r->update();
     return back()->with('success','se ha creado correctamente');
+  }
+
+  public function updateV2(Request $request, $id) {
+    $this->policy->admin();
+
+    $url_new = $request->input('url_web');
+
+    $rooms = Room::where('url', $url_new)->get();
+    $r = Room::findOrFail($id);
+
+    if (sizeOf($rooms) == 0 || $r->url == $url_new) {
+      $r->url = $url_new;
+      $config = $r->config;
+      $config['enable_register'] = !empty($request->input('enable_register'));
+      $config['enable_public'] = !empty($request->input('enable_public'));
+      $r->config = $config;
+      $r->update();
+      return back()->with('success','se ha actualizado');
+    }
+    return back()->with('danger','Intenta nuevamente');
   }
 
   public function active(Request $request){
@@ -148,5 +168,10 @@ class RoomController extends Controller
     } catch (\Throwable $th) {
       return back()->with('danger','Error intente nuevamente.');
     }
+  }
+
+  public function publicUrl(Request $request, $id) {
+    // $r->url = $r->id;
+    // $r->update();
   }
 }

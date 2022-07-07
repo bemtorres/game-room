@@ -59,4 +59,14 @@ class Room extends Model
     $m = new Currency($this->banker_money ?? 0);
     return $m->money() ?? 0;
   }
+
+  public function getConfigEnableRegister() {
+    return $this->config['enable_register'] ?? false;
+    //
+  }
+
+  public function getConfigEnablePublic() {
+    return $this->config['enable_public'] ?? false;
+    //
+  }
 }

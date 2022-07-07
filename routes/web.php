@@ -45,6 +45,7 @@ Route::middleware('usuario')->group( function () {
 
 
   Route::resource('rooms', 'Admin\RoomController');
+  Route::put('rooms/{id}/update_v2', 'Admin\RoomController@updateV2')->name('rooms.update_v2');
 
   // Loteria
   Route::get('room/{id}/players','Admin\RoomController@players')->name('room.players');
@@ -69,3 +70,11 @@ Route::middleware('usuario')->group( function () {
   // API
   Route::put('collapse','Admin\UsuarioController@collapse');
 });
+
+// PUBLIC
+
+Route::get('app/room/{url}','Auth\ShareController@show')->name('app.room.share');
+Route::post('app/room/{url}','Auth\ShareController@login')->name('app.room.share');
+
+Route::get('app/room/{url}/account','Auth\ShareController@account')->name('app.room.account');
+// Route::post('app/room/public','Auth\AuthController@login')->name('root');
