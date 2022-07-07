@@ -43,7 +43,7 @@ class User extends Authenticatable
   }
 
   public function getPageCollapse() {
-    return ($this->config['page_collapse'] == 'active' ?? false) ? true : false;
+    return ($this->config['page_collapse'] ?? 'x') == 'active' ? true : false;
   }
 
   // public function cupones(){

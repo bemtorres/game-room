@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @push('stylesheet')
-
+<link rel="stylesheet" href="{{ asset('vendor/datatables-bs4/css/dataTables.bootstrap4.css') }}">
 @endpush
 @section('content')
 <main class="content">
@@ -66,5 +66,12 @@
 </main>
 @endsection
 @push('javascript')
-
+<script src="{{ asset('vendor/datatables/jquery.dataTables.js') }}"></script>
+<script src="{{ asset('vendor/datatables-bs4/js/dataTables.bootstrap4.js') }}"></script>
+<script src="{{ asset('vendor/dinobox/datatables-es.js') }}"></script>
+<script>
+  $(function () {
+  $("#tablaTrans").DataTable();
+  });
+</script>
 @endpush
