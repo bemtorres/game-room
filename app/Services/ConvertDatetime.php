@@ -18,6 +18,10 @@ class ConvertDatetime
     return $this->format($this->date,'d-m-Y');
   }
 
+  public function getDateV3(){
+    return $this->format($this->date,'d/m/Y H:i:s');
+  }
+
   public function getDateV2(){
     return $this->format($this->date,'Y-m-d');
   }

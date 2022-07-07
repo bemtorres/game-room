@@ -6,8 +6,7 @@ use Jenssegers\Agent\Agent;
 
 use App\Http\Controllers\Controller;
 use App\Models\Account;
-use App\Models\Claim;
-use App\Models\LotoCard;
+use App\Models\Bank\Transaction;
 use App\Models\Room;
 use App\Models\User;
 use App\Models\UserRoom;
@@ -77,9 +76,8 @@ class GameController extends Controller
 
       return redirect()->route('game.bank.play', $r->id);
     } catch (\Throwable $th) {
-
-      return $th;
-    // return redirect()->route('home')->with('info', 'Juego no disponible');
+      // return $th;
+      return redirect()->route('home')->with('info', 'Juego no disponible');
     }
   }
 
@@ -91,11 +89,21 @@ class GameController extends Controller
                                 ->firstOrFail();
     $contacts = UserRoom::where('room_id',$room_id)->where('user_id', '!=', current_user()->id)->get();
 
+    $id = $user_room->id;
+    $transactions = Transaction::where('room_id', $room_id)
+                                ->where(function ($query) use ($id){
+                                  return $query->orWhere('receiver_user_id', $id)
+                                                ->orWhere('transmitter_user_id', $id);
+                                })
+                                ->with(['transmitter_user','receiver_user'])
+                                ->orderBy('id', 'desc')
+                                ->get();
+
     $isBanker = false;
     $agent = new Agent();
     $isMobile = $agent->isMobile();
 
-    return view('bank.game.play',compact('r','user_room', 'contacts', 'isBanker', 'isMobile'));
+    return view('bank.game.play',compact('r','user_room', 'contacts', 'isBanker', 'isMobile', 'transactions'));
   }
 
   public function playBanker($room_id) {
@@ -112,11 +120,20 @@ class GameController extends Controller
     $agent = new Agent();
     $isMobile = $agent->isMobile();
 
-    return view('bank.game.play',compact('r','user_room', 'contacts', 'isBanker', 'isMobile'));
+    $id = 0;
+    $transactions = Transaction::where('room_id', $room_id)
+                                ->where(function ($query) use ($id){
+                                  return $query->orWhere('receiver_user_id', $id)
+                                                ->orWhere('transmitter_user_id', $id);
+                                })
+                                ->with(['transmitter_user','receiver_user'])
+                                ->orderBy('id', 'desc')
+                                ->get();
+
+    return view('bank.game.play',compact('r','user_room', 'contacts', 'isBanker', 'isMobile', 'transactions'));
   }
 
   public function transfer(Request $request, $room_id) {
-
     $status_code = 'error';
     $status_resp = 'Error intente nuevamente';
 
@@ -130,24 +147,73 @@ class GameController extends Controller
     $contact_id = $request->input('contact_id');
     $pass = $request->input('n1') . $request->input('n2') . $request->input('n3') . $request->input('n4');
     $money = $request->input('money');
-    $comment = $request->input('comment');
+    $comment = $request->input('comment') ?? 'Transferencia electrónica';
 
     $type = $request->input('type'); //BANK : USER
 
+    if ($type == 'USER') {
+      if ($pass == $user_room->getPassword()) {
+        if ($user_room->money > 0 && $user_room->money >= $money) {
+          // a quien deposita?
+          $tr = new Transaction();
+          $tr->room_id = $room_id;
+          $tr->user_room_id = $user_room->id;
+          $tr->money_bank = false;
+          $tr->transmitter_user_id = $user_room->id; //usuario que se inscribio | 0 banco
+          $tr->receiver_user_id = $contact_id;       //usuario que se inscribio | 0 banco
+          $tr->config = [
+            'comment' => $comment
+          ];
+          $tr->money = $money;
+          $tr->save();
 
-    if ($pass == $user_room->getPassword()) {
-      if ($user_room->money > 0) {
-        if ($contact_id == 0) { // Banco
-
-        } else { // contact
-
+          $user_room->money -= $money;
+          $user_room->update();
+          if ($contact_id == 0) { // Banco
+            $r->banker_money += $money;
+            $r->update();
+          } else { // contact
+            $user_room_contact = UserRoom::where('room_id',$room_id)->find($contact_id);
+            $user_room_contact->money += $money;
+            $user_room_contact->update();
+          }
+          $status_code = 'success';
+          $status_resp = 'Enviado';
+        } else {
+          $status_resp = 'Error, No tienes fondos disponibles';
         }
+      } else {
+        $status_resp = 'Error, GR PASS incorrecta';
+      }
+    } else{
+      // Como banco
+      if ($r->banker_money > 0 && $r->banker_money >= $money) {
+          // a quien deposita?
+          $tr = new Transaction();
+          $tr->room_id = $room_id;
+          $tr->user_room_id = $user_room->id;
+          $tr->money_bank = true;
+          $tr->transmitter_user_id = 0; // soy el banco
+          $tr->receiver_user_id = $contact_id;
+          $tr->config = [
+            'comment' => $comment
+          ];
+          $tr->money = $money;
+          $tr->save();
 
+          $r->banker_money -= $money;
+          $r->update();
+
+          // contact
+          $user_room_contact = UserRoom::where('room_id',$room_id)->find($contact_id);
+          $user_room_contact->money += $money;
+          $user_room_contact->update();
+
+          $status_code = 'success';
+          $status_resp = 'Enviado';
       } else {
         $status_resp = 'Error, No tienes fondos disponibles';
       }
-    } else {
-      $status_resp = 'Error, GR PASS incorrecta';
     }
 
     return back()->with($status_code, $status_resp);
@@ -156,18 +222,28 @@ class GameController extends Controller
   public function profile(Request $request, $room_id) {
     $pass = $request->input('n1') . $request->input('n2') . $request->input('n3') . $request->input('n4');
     $nickname = $request->input('nickname');
-    $img = $request->input('imagen');
-
-    $config = [
-      'pass' => $pass,
-      'nickname' => $nickname,
-      'img' => $img,
-    ];
 
     $user_room = UserRoom::where('room_id',$room_id)
                             ->where('user_id',current_user()->id)
                             ->firstOrFail();
 
+    $config = $user_room->config;
+    $config['pass'] = $pass;
+    $config['nickname'] = $nickname;
+    $config['color'] = $request->input('color');
+    $user_room->config = $config;
+    $user_room->update();
+
+    return back()->with('success', 'actualizado');
+  }
+
+  public function avatar(Request $request, $room_id) {
+    $user_room = UserRoom::where('room_id',$room_id)
+                            ->where('user_id',current_user()->id)
+                            ->firstOrFail();
+
+    $config = $user_room->config;
+    $config['img'] = $request->input('imagen');
     $user_room->config = $config;
     $user_room->update();
 

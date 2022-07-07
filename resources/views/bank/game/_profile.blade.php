@@ -29,7 +29,7 @@
   <div class="col-12 col-md-6">
     <div class="row mb-3">
       <div class="col-4 col-md-4">
-        <img src="{{ $user_room->getPhoto() }}" class="rounded-circle shadow-lg mg-fluid border border-primary border-3" width="100" height="100" alt="">
+        <img src="{{ $user_room->getPhoto() }}" class="rounded-circle shadow-lg mg-fluid border border-primary border-3" width="100" height="100" alt="" data-bs-toggle="modal" data-bs-target="#avatarModal">
       </div>
       <div class="col-8 col-md-8">
         <h4 class="pt-2 h4 fw-bold">{{ $user_room->getNickname() }}</h4>

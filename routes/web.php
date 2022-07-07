@@ -27,6 +27,7 @@ Route::middleware('usuario')->group( function () {
   Route::get('game_banco/{room_id}/play_banker','Admin\Bank\GameController@playBanker')->name('game.bank.play_banker');
   Route::post('game_banco/{room_id}/transfer','Admin\Bank\GameController@transfer')->name('game.bank.transfer');
   Route::put('game_banco/{room_id}/profile','Admin\Bank\GameController@profile')->name('game.bank.profile');
+  Route::put('game_banco/{room_id}/avatar','Admin\Bank\GameController@avatar')->name('game.bank.avatar');
 
   // Cupones
   Route::resource('cupons', 'Admin\CuponController');
@@ -54,6 +55,7 @@ Route::middleware('usuario')->group( function () {
   // Banco
   Route::get('rooms_bank/{id}', 'Admin\Bank\RoomBankController@show')->name('rooms.bank.show');
   Route::get('rooms_bank/{id}/players', 'Admin\Bank\RoomBankController@players')->name('rooms.bank.players');
+  Route::get('rooms_bank/{id}/transactions', 'Admin\Bank\RoomBankController@transactions')->name('rooms.bank.transactions');
 
 
   Route::get('loto','Admin\LotoController@index')->name('loto.index');

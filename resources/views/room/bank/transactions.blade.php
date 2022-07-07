@@ -24,40 +24,37 @@
           <table class="table table-hover">
             <thead>
               <tr>
-                <th>Nombre</th>
-                <th>Correo</th>
-                <th>Dinero</th>
-                <th>Banquero</th>
                 <th></th>
+                <th>Enviado por</th>
+                <th>Recibido por</th>
+                <th class="text-end">Dinero</th>
               </tr>
             </thead>
             <tbody>
-              @foreach ($r->players_bank as $p)
+              @foreach ($transactions as $t)
               <tr>
                 <td>
-                  <a href="{{ route('usuarios.show',$p->usuario->id) }}">
-                    {{ $p->usuario->name }}</td>
-                  </a>
-                <td>
-                  <a href="{{ route('usuarios.show',$p->usuario->id) }}">
-                    {{ $p->usuario->email }}
-                  </a>
+                  {{ $t->getFechaCreacion()->getDateTime() }}
                 </td>
-                <td>$ {{ $p->getMoney() }}</td>
                 <td>
-                  @if ($p->banker)
-                    Si
+                  @if ($t->transmitter_user ?? false)
+                    <img src="{{ $t->transmitter_user->getPhoto() }}" width="40" alt="">
+                    {{ $t->transmitter_user->getNickname() }}
                   @else
-                    No
+                    <img src="{{ asset($r->getPhoto()) }}" width="40" alt="">
+                    {{ $r->name }}
                   @endif
                 </td>
                 <td>
-                  <form action="" method="post">
-                    @method('PUT')
-                    <input type="hidden" name="user_id" value="{{ $p->user_id }}">
-                    <button type="submit" class="btn btn-primary"></button>
-                  </form>
+                  @if ($t->receiver_user ?? false)
+                    <img src="{{ $t->receiver_user->getPhoto() }}" width="40" alt="">
+                    {{ $t->receiver_user->getNickname() }}
+                  @else
+                    <img src="{{ asset($r->getPhoto()) }}" width="40" alt="">
+                    {{ $r->name }}
+                  @endif
                 </td>
+                <td class="text-end fw-bold">$ {{ $t->getMoney() }}</td>
               </tr>
               @endforeach
             </tbody>

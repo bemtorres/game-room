@@ -71,9 +71,8 @@
       width: 40px;
       border-radius: 100%;
     }
-
-
 </style>
+@include('bank.game._css_style')
 @endpush
 @section("app")
   <main class="d-flex w-100">
@@ -118,29 +117,52 @@
                     <div class="table-wrapper-scroll-y my-custom-scrollbar">
                       <table class="table table-hover">
                         <tbody>
-                          @for ($i = 0; $i < 20; $i++)
+                          @foreach ($transactions as $trans)
+                            @php
+                              $date = $trans->getFechaCreacion()->getDateV3();
+                              $money = $trans->getMoney();
+                              $type = 'IN';
+                              $comment = $trans->getConfigComment();
+                              $img = "";
+
+                              if ($trans->transmitter_user_id == 0) { // el banco envia dinero
+                                $img = asset($r->getPhoto()) ?? '';
+
+                                if ($isBanker) {
+                                  $type = 'OUT';
+                                  $img = asset($trans->receiver_user->getPhoto()) ?? '';
+                                }
+
+                              } else {
+                                if ($trans->transmitter_user_id == $user_room->id) { // usuario envia
+                                  $type = 'OUT';
+                                  if ($trans->receiver_user_id == 0) {
+                                    $img = asset($r->getPhoto()) ?? '';
+
+                                    if ($isBanker) {
+                                      $type = 'IN';
+                                      $img = asset($trans->transmitter_user->getPhoto()) ?? '';
+                                    }
+                                  } else {
+                                    $img = asset($trans->receiver_user->getPhoto()) ?? '';
+                                  }
+                                } else {
+                                  $img = asset($trans->transmitter_user->getPhoto()) ?? '';
+                                }
+                              }
+
+                            @endphp
                             <tr>
-                              @if ($i % 2 == 0)
-                                @component('bank.game._list_pay')
-                                  @slot('img', asset($user_room->getPhoto()))
-                                  @slot('date', '20/20/2020')
-                                  @slot('comment', 'Entrega de persona uno')
-                                  @slot('type', 'OUT')
-                                  @slot('money', '10.000')
-                                  @slot('isMobile', $isMobile)
-                                @endcomponent
-                              @else
-                                @component('bank.game._list_pay')
-                                  @slot('img', asset($user_room->getPhoto()))
-                                  @slot('date', '20/20/2020')
-                                  @slot('comment', 'Entrega de persona uno')
-                                  @slot('type', 'IN')
-                                  @slot('money', '100.000')
-                                  @slot('isMobile', $isMobile)
-                                @endcomponent
-                              @endif
+                              @component('bank.game._list_pay')
+                                @slot('img', $img)
+                                @slot('date', $date)
+                                @slot('comment', $comment)
+                                @slot('type', $type)
+                                @slot('money', $money)
+                                @slot('isMobile', $isMobile)
+                              @endcomponent
                             </tr>
-                          @endfor
+                          @endforeach
                         </tbody>
                       </table>
                     </div>
@@ -201,31 +223,21 @@
                           <input class="form-control form-control-lg" type="text" id="nickname" name="nickname" value="{{ current_user()->name }}" required>
                         </div>
 
+                        <div class="mb-3">
+                          <label class="form-label text-lg">Cambia tu nombre</label>
+                          {{-- <input class="form-control form-control-lg" type="text" id="nickname" name="nickname" value="{{ current_user()->name }}" required> --}}
+                          {{-- <input  value='#276cb8' /> --}}
+                          <input id="color-picker" class="mx-4 form-control form-control-lg" type="color" id="color" name="color" value="{{ $user_room->getColor() ?? '0d6efd'}}" required>
+                        </div>
+
                         <div class="md-3 row">
                           <label class="form-label text-lg">Cambia tu <span class="btn-label"><img src="{{ asset("RoomGame.svg") }}" width="20" height="20" class="ms-2" /></span>
                             <strong class="text-success">RG PASS</strong>
                           </label>
-                          <input type="number" class="col mx-2 form-control form-control-lg text-center fw-bold" id="n1" name="n1" min="0" max="9" maxlength="1" maxlength="1" pattern="[0-9]+"  title="Formato: 1 digito" required>
-                          <input type="number" class="col mx-2 form-control form-control-lg text-center fw-bold" id="n2" name="n2" min="0" max="9" maxlength="1" pattern="[0-9]+"  title="Formato: 1 digito" required>
-                          <input type="number" class="col mx-2 form-control form-control-lg text-center fw-bold" id="n3" name="n3" min="0" max="9" maxlength="1" pattern="[0-9]+"  title="Formato: 1 digito" required>
-                          <input type="number" class="col mx-2 form-control form-control-lg text-center fw-bold" id="n4" name="n4" min="0" max="9" maxlength="1" pattern="[0-9]+"  title="Formato: 1 digito" required>
-                        </div>
-
-                        <label class="form-label text-lg mt-2">Selecciona tu avatar favorito</label>
-                        <div class="container parent table-wrapper-scroll-y my-custom-scrollbar-img">
-                          <div class="row">
-                            @for ($i = 1; $i < 24; $i++)
-                              <div class="col col-4 col-sm-4 col-md-4 col-lg-3 text-center">
-                                <input type="radio" name="imagen" id="img{{ $i }}" onclick="selectedImg()" class="d-none imgbgchk" value="{{ $i }}" {{ $i==1 ? 'required' : '' }} {{ $user_room->config['img'] == $i ? 'checked' : '' }}>
-                                <label for="img{{ $i }}">
-                                  <img src="{{ asset('assets/game/personajes/'.$i.".png") }}" class="rounded-2" alt="Image {{ $i }}">
-                                  <div class="tick_container">
-                                    <div class="tick"><i class="fa fa-check"></i></div>
-                                  </div>
-                                </label>
-                              </div>
-                            @endfor
-                          </div>
+                          <input type="number" class="col mx-2 form-control form-control-lg text-center fw-bold" id="nn1" name="n1" min="0" max="9" maxlength="1" maxlength="1" pattern="[0-9]+"  title="Formato: 1 digito" required>
+                          <input type="number" class="col mx-2 form-control form-control-lg text-center fw-bold" id="nn2" name="n2" min="0" max="9" maxlength="1" pattern="[0-9]+"  title="Formato: 1 digito" required>
+                          <input type="number" class="col mx-2 form-control form-control-lg text-center fw-bold" id="nn3" name="n3" min="0" max="9" maxlength="1" pattern="[0-9]+"  title="Formato: 1 digito" required>
+                          <input type="number" class="col mx-2 form-control form-control-lg text-center fw-bold" id="nn4" name="n4" min="0" max="9" maxlength="1" pattern="[0-9]+"  title="Formato: 1 digito" required>
                         </div>
 
                         <div class="text-center mt-3 d-grid gap-2">
@@ -276,68 +288,40 @@
   @endif
 
 
-<!-- Modal -->
-<div class="modal fade" id="transferModal" tabindex="-1" aria-labelledby="transferModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title text-primary" id="transferModalLabel">¿Cuánto transferirás?</h5>
-
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-
-        <form class="form-submit" action="{{ route('game.bank.transfer',$r->id) }}" method="POST">
-          @csrf
-
-          <input type="hidden" name="contact_id" id="modal-contact">
-          <input type="hidden" name="type" value="{{ $isBanker ? 'BANK' : 'USER' }}">
+@include('bank.game._modal_transfer')
+@include('bank.game._modal_avatar')
 
 
-          <div class="mb-3">
-            <label class="form-label text-lg">Ingrese un monto</label>
-            <input class="form-control form-control-lg" type="number" id="money" name="money" placeholder="Ej: $1.000" min="1" pattern="[0-9]+" required>
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label text-lg">Comentario</label>
-            <input class="form-control form-control-lg" type="text" id="comment" name="comment">
-          </div>
-
-          @if (!$isBanker)
-          <div class="mb-3 row">
-            <label class="form-label text-lg">
-              Ingresa su <span class="btn-label"><img src="{{ asset("RoomGame.svg") }}" width="20" height="20" class="ms-2" /></span>
-              <strong class="text-success">RG PASS</strong>
-            </label>
-            <input type="number" class="col mx-2 form-control form-control-lg text-center fw-bold" id="n1" name="n1" min="0" max="9" maxlength="1" maxlength="1" pattern="[0-9]+"  title="Formato: 1 digito" required>
-            <input type="number" class="col mx-2 form-control form-control-lg text-center fw-bold" id="n2" name="n2" min="0" max="9" maxlength="1" pattern="[0-9]+"  title="Formato: 1 digito" required>
-            <input type="number" class="col mx-2 form-control form-control-lg text-center fw-bold" id="n3" name="n3" min="0" max="9" maxlength="1" pattern="[0-9]+"  title="Formato: 1 digito" required>
-            <input type="number" class="col mx-2 form-control form-control-lg text-center fw-bold" id="n4" name="n4" min="0" max="9" maxlength="1" pattern="[0-9]+"  title="Formato: 1 digito" required>
-          </div>
-          @endif
-
-          <div class="d-grid gap-2">
-            <button type="submit" id="btn-transfer" disabled class="btn btn-lg btn-primary p-3"><strong>DEPOSITAR</strong></button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
 @endsection
 @push("javascript")
 
 <script>
 
-  $("#money").keyup(function() { validateForm(); });
+  $("#money_transfer").keyup(function() { validateForm(); });
   $("#n1").keyup(function() { validateForm(); $("#n2").focus(); });
   $("#n2").keyup(function() { validateForm(); $("#n3").focus(); });
   $("#n3").keyup(function() { validateForm(); $("#n4").focus(); });
   $("#n4").keyup(function() { validateForm(); });
 
+  const validarCodeBank = {{ $isBanker ? 'true' : 'false' }};
+
+  function validateCode() {
+    if (!validarCodeBank) {
+      if($("#n1").val().length > 0
+      && $("#n2").val().length > 0
+      && $("#n3").val().length > 0
+      && $("#n4").val().length > 0
+      ) {
+        return true;
+      }
+      return false;
+    }
+    return true;
+  }
+
   function validateForm() {
-    if ($("#money").val() && $("#n1").val() && $("#n2").val() && $("#n3").val() && $("#n4").val()) {
+    console.log(validateCode());
+    if ($("#money_transfer").val() && validateCode()) {
       $("#btn-transfer").removeAttr("disabled");
     } else {
       $("#btn-transfer").attr("disabled", true);
@@ -354,29 +338,23 @@
   });
 
 
-  let selectImg = false;
 
-  $("#nickname").keyup(function() { validateForm(); });
-  // $("#n1").keyup(function() { console.log(this); };
-  $("#n1").keyup(function() { validateForm(); $("#n2").focus(); });
-  $("#n2").keyup(function() { validateForm(); $("#n3").focus(); });
-  $("#n3").keyup(function() { validateForm(); $("#n4").focus(); });
-  $("#n4").keyup(function() { validateForm(); });
+  $("#nickname").keyup(function() { validateForm2(); });
+  $("#nn1").keyup(function() { validateForm2(); $("#nn2").focus(); });
+  $("#nn2").keyup(function() { validateForm2(); $("#nn3").focus(); });
+  $("#nn3").keyup(function() { validateForm2(); $("#nn4").focus(); });
+  $("#nn4").keyup(function() { validateForm2(); });
 
-  function selectedImg() {
-    selectImg = true;
-    validateForm();
-  }
-
-  function validateForm() {
-    if ($("#nickname").val() && $("#n1").val() && $("#n2").val() && $("#n3").val() && $("#n4").val() && selectImg) {
+  function validateForm2() {
+    if ($("#nickname").val() && $("#nn1").val() && $("#nn2").val() && $("#nn3").val() && $("#nn4").val()) {
       $("#btn-play").removeAttr("disabled");
     } else {
       $("#btn-play").attr("disabled", true);
     }
   }
 
-
+  $('#color-picker').spectrum({
+    type: "component"
+  });
 </script>
-
 @endpush

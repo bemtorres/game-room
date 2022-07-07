@@ -26,13 +26,13 @@
                   <div class="form-group row mb-3">
                     <label for="inputCorreo" class="col-sm-4 col-form-label">Correo</label>
                     <div class="col-sm-8">
-                      <input type="text" class="form-control" id="inputNombre" name="email" placeholder="" required>
+                      <input type="text" class="form-control" id="inputNombre" name="email" autocomplete="new-email"  placeholder="" required>
                     </div>
                   </div>
                   <div class="form-group row mb-3">
                     <label for="inputCorreo" class="col-sm-4 col-form-label">Password</label>
                     <div class="col-sm-8">
-                      <input type="password" class="form-control" id="inputNombre" name="password" placeholder="" required>
+                      <input type="password" class="form-control" id="inputNombrePasswprd" autocomplete="new-password" name="password" placeholder="" required>
                     </div>
                   </div>
                   <div class="form-group row mb-3">

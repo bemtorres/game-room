@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Bank;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bank\Transaction;
 use App\Models\Claim;
 use App\Models\Room;
 use App\Services\Policies\PolicyModel;
@@ -28,5 +29,11 @@ class RoomBankController extends Controller
     return view('room.bank.players',compact('r'));
   }
 
+  public function transactions($id) {
+    $this->policy->admin();
+    $r = Room::findOrFail($id);
+    $transactions = Transaction::where('room_id', $id)->with(['transmitter_user','receiver_user'])->orderBy('id', 'desc')->get();
 
+    return view('room.bank.transactions',compact('r', 'transactions'));
+  }
 }

@@ -46,6 +46,13 @@
       <strong>JUGADORES</strong>
     </a>
   </li>
+  <li class="nav-item">
+    <a class="nav-link {{ activeTab("rooms_bank/$r->id/transactions") }}" href="{{ route('rooms.bank.transactions',$r->id) }}">
+      <strong>TRANSACCIONES</strong>
+    </a>
+  </li>
+
+
   @endif
 
 

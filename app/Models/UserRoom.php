@@ -40,9 +40,11 @@ class UserRoom extends Model
     return $this->config['nickname'] ?? '';
   }
 
+  public function getColor() {
+    return $this->config['color'] ?? '';
+  }
+
   public function getPassword() {
     return $this->config['pass'] ?? '';
   }
-
-  //
 }
