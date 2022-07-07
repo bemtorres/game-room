@@ -81,7 +81,6 @@
         <div class="col-sm-12 col-md-10 col-lg-8 mx-auto d-table h-100">
           <div class="d-table-cell align-middle">
 
-
             @include('bank.game._profile')
 
             @if (!$isMobile)
@@ -224,9 +223,7 @@
                         </div>
 
                         <div class="mb-3">
-                          <label class="form-label text-lg">Cambia tu nombre</label>
-                          {{-- <input class="form-control form-control-lg" type="text" id="nickname" name="nickname" value="{{ current_user()->name }}" required> --}}
-                          {{-- <input  value='#276cb8' /> --}}
+                          <label class="form-label text-lg">Cambia tu color</label>
                           <input id="color-picker" class="mx-4 form-control form-control-lg" type="color" id="color" name="color" value="{{ $user_room->getColor() ?? '0d6efd'}}" required>
                         </div>
 
@@ -354,7 +351,8 @@
   }
 
   $('#color-picker').spectrum({
-    type: "component"
+    showInput: true,
+    showAlpha: true
   });
 </script>
 @endpush

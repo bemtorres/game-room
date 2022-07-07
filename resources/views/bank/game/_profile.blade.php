@@ -34,7 +34,7 @@
       <div class="col-8 col-md-8">
         <h4 class="pt-2 h4 fw-bold">{{ $user_room->getNickname() }}</h4>
 
-        @if (!$user_room->banker)
+        @if ($user_room->banker)
           <a href="{{ route('game.bank.play_banker',$r->id) }}" class="btn btn-primary">Cambiar a Banquero</a>
         @endif
 

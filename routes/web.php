@@ -55,6 +55,7 @@ Route::middleware('usuario')->group( function () {
   // Banco
   Route::get('rooms_bank/{id}', 'Admin\Bank\RoomBankController@show')->name('rooms.bank.show');
   Route::get('rooms_bank/{id}/players', 'Admin\Bank\RoomBankController@players')->name('rooms.bank.players');
+  Route::put('rooms_bank/{id}/players', 'Admin\Bank\RoomBankController@playersBanker')->name('rooms.bank.players');
   Route::get('rooms_bank/{id}/transactions', 'Admin\Bank\RoomBankController@transactions')->name('rooms.bank.transactions');
 
 

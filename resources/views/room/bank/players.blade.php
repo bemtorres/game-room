@@ -52,10 +52,11 @@
                   @endif
                 </td>
                 <td>
-                  <form action="" method="post">
+                  <form action="{{ route('rooms.bank.players', $r->id) }}" method="post">
+                    @csrf
                     @method('PUT')
                     <input type="hidden" name="user_id" value="{{ $p->user_id }}">
-                    <button type="submit" class="btn btn-primary"></button>
+                    <button type="submit" name="option" value="bank" class="btn btn-primary btn-sm">Bankero</button>
                   </form>
                 </td>
               </tr>

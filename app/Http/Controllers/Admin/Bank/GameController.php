@@ -107,30 +107,34 @@ class GameController extends Controller
   }
 
   public function playBanker($room_id) {
-    $r = Room::where('active',true)->where('status','<>',4)->findOrFail($room_id);
-    $user_room = UserRoom::where('room_id',$room_id)
-                                ->where('user_id',current_user()->id)
-                                // ->where('banker',true)
-                                ->with(['room'])
-                                ->firstOrFail();
+    try {
+      $r = Room::where('active',true)->where('status','<>',4)->findOrFail($room_id);
+      $user_room = UserRoom::where('room_id',$room_id)
+                                  ->where('user_id',current_user()->id)
+                                  ->where('banker',true)
+                                  ->with(['room'])
+                                  ->firstOrFail();
 
-    $contacts = UserRoom::where('room_id',$room_id)->get();
+      $contacts = UserRoom::where('room_id',$room_id)->get();
 
-    $isBanker = true;
-    $agent = new Agent();
-    $isMobile = $agent->isMobile();
+      $isBanker = true;
+      $agent = new Agent();
+      $isMobile = $agent->isMobile();
 
-    $id = 0;
-    $transactions = Transaction::where('room_id', $room_id)
-                                ->where(function ($query) use ($id){
-                                  return $query->orWhere('receiver_user_id', $id)
-                                                ->orWhere('transmitter_user_id', $id);
-                                })
-                                ->with(['transmitter_user','receiver_user'])
-                                ->orderBy('id', 'desc')
-                                ->get();
+      $id = 0;
+      $transactions = Transaction::where('room_id', $room_id)
+                                  ->where(function ($query) use ($id){
+                                    return $query->orWhere('receiver_user_id', $id)
+                                                  ->orWhere('transmitter_user_id', $id);
+                                  })
+                                  ->with(['transmitter_user','receiver_user'])
+                                  ->orderBy('id', 'desc')
+                                  ->get();
 
-    return view('bank.game.play',compact('r','user_room', 'contacts', 'isBanker', 'isMobile', 'transactions'));
+      return view('bank.game.play',compact('r','user_room', 'contacts', 'isBanker', 'isMobile', 'transactions'));
+    } catch (\Throwable $th) {
+      return back()->with('error', 'Error intente nuevamente');
+    }
   }
 
   public function transfer(Request $request, $room_id) {
