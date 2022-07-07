@@ -21,7 +21,7 @@
                   {{-- <div class="text-center">
                     <img src="img/avatars/avatar.jpg" alt="Charles Hall" class="img-fluid rounded-circle" width="132" height="132" />
                   </div> --}}
-                  <form class="form-signin form-submit" action="{{ route('root') }}" method="post">
+                  <form class="form-signin form-submit" action="{{ route('app.room.share', $r->url) }}" method="post">
                     @csrf
                     <div class="mb-3">
                       <label class="form-label">Email</label>

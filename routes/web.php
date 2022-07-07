@@ -77,4 +77,6 @@ Route::get('app/room/{url}','Auth\ShareController@show')->name('app.room.share')
 Route::post('app/room/{url}','Auth\ShareController@login')->name('app.room.share');
 
 Route::get('app/room/{url}/account','Auth\ShareController@account')->name('app.room.account');
+Route::post('app/room/{url}/account','Auth\ShareController@register')->name('app.room.account');
+
 // Route::post('app/room/public','Auth\AuthController@login')->name('root');

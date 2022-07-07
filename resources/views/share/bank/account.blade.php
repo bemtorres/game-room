@@ -18,7 +18,7 @@
             <div class="card">
               <div class="card-body">
                 <div class="m-sm-4">
-                  <form class="form-signin form-submit" action="{{ route('root') }}" method="post">
+                  <form class="form-signin form-submit" action="{{ route('app.room.account', $r->url) }}" method="post">
                     @csrf
                     <div class="mb-3">
                       <label class="form-label">Nombre</label>
