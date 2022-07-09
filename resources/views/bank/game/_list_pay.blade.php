@@ -6,8 +6,9 @@
     <div class="col-8 col-md-6">
       <small>{{ $date ?? '' }}</small><br/>
       <p class="fw-bold {{ $isMobile ? '' : 'h6' }}">
-        {{ $comment ?? '' }}
+        {{ $name ?? '' }}
       </p>
+      <small>{{ $comment ?? '' }}</small>
     </div>
   </div>
 </td>

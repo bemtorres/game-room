@@ -75,7 +75,7 @@
 
                   <div class="md-3 row">
                     <label class="form-label text-lg">Ingresa su <span class="btn-label"><img src="{{ asset("RoomGame.svg") }}" width="20" height="20" class="ms-2" /></span>
-                      <strong class="text-success">RG PASS</strong>
+                      <strong class="text-success">GR PASS</strong>
                     </label>
                     <input type="number" class="col mx-2 form-control form-control-lg text-center fw-bold" id="n1" name="n1" min="0" max="9" maxlength="1" maxlength="1" pattern="[0-9]+"  title="Formato: 1 digito" required>
                     <input type="number" class="col mx-2 form-control form-control-lg text-center fw-bold" id="n2" name="n2" min="0" max="9" maxlength="1" pattern="[0-9]+"  title="Formato: 1 digito" required>

@@ -253,4 +253,179 @@ class GameController extends Controller
 
     return back()->with('success', 'actualizado');
   }
+
+  // cobrar
+  public function collect(Request $request, $room_id) {
+    // $status_code = 'error';
+    // $status_resp = 'Error intente nuevamente';
+
+    // $r = Room::where('active',true)->where('status','<>',4)->findOrFail($room_id);
+    // $user_room = UserRoom::where('room_id',$room_id)
+    //                             ->where('user_id',current_user()->id)
+    //                             ->firstOrFail();
+
+    // $contacts = UserRoom::where('room_id',$room_id)->get();
+
+    // $contact_id = $request->input('contact_id');
+    // $pass = $request->input('n1') . $request->input('n2') . $request->input('n3') . $request->input('n4');
+    // $money = $request->input('money');
+    // $comment = $request->input('comment') ?? 'Transferencia electrónica';
+
+    // $type = $request->input('type'); //BANK : USER
+
+    // if ($type == 'USER') {
+    //   if ($pass == $user_room->getPassword()) {
+    //     if ($user_room->money > 0 && $user_room->money >= $money) {
+    //       // a quien deposita?
+    //       $tr = new Transaction();
+    //       $tr->room_id = $room_id;
+    //       $tr->user_room_id = $user_room->id;
+    //       $tr->money_bank = false;
+    //       $tr->transmitter_user_id = $user_room->id; //usuario que se inscribio | 0 banco
+    //       $tr->receiver_user_id = $contact_id;       //usuario que se inscribio | 0 banco
+    //       $tr->config = [
+    //         'comment' => $comment
+    //       ];
+    //       $tr->money = $money;
+    //       $tr->save();
+
+    //       $user_room->money -= $money;
+    //       $user_room->update();
+    //       if ($contact_id == 0) { // Banco
+    //         $r->banker_money += $money;
+    //         $r->update();
+    //       } else { // contact
+    //         $user_room_contact = UserRoom::where('room_id',$room_id)->find($contact_id);
+    //         $user_room_contact->money += $money;
+    //         $user_room_contact->update();
+    //       }
+    //       $status_code = 'success';
+    //       $status_resp = 'Enviado';
+    //     } else {
+    //       $status_resp = 'Error, No tienes fondos disponibles';
+    //     }
+    //   } else {
+    //     $status_resp = 'Error, GR PASS incorrecta';
+    //   }
+    // } else{
+    //   // Como banco
+    //   if ($r->banker_money > 0 && $r->banker_money >= $money) {
+    //       // a quien deposita?
+    //       $tr = new Transaction();
+    //       $tr->room_id = $room_id;
+    //       $tr->user_room_id = $user_room->id;
+    //       $tr->money_bank = true;
+    //       $tr->transmitter_user_id = 0; // soy el banco
+    //       $tr->receiver_user_id = $contact_id;
+    //       $tr->config = [
+    //         'comment' => $comment
+    //       ];
+    //       $tr->money = $money;
+    //       $tr->save();
+
+    //       $r->banker_money -= $money;
+    //       $r->update();
+
+    //       // contact
+    //       $user_room_contact = UserRoom::where('room_id',$room_id)->find($contact_id);
+    //       $user_room_contact->money += $money;
+    //       $user_room_contact->update();
+
+    //       $status_code = 'success';
+    //       $status_resp = 'Enviado';
+    //   } else {
+    //     $status_resp = 'Error, No tienes fondos disponibles';
+    //   }
+    // }
+
+    // return back()->with($status_code, $status_resp);
+  }
+
+  // pagar
+  public function payment(Request $request, $room_id) {
+    // $status_code = 'error';
+    // $status_resp = 'Error intente nuevamente';
+
+    // $r = Room::where('active',true)->where('status','<>',4)->findOrFail($room_id);
+    // $user_room = UserRoom::where('room_id',$room_id)
+    //                             ->where('user_id',current_user()->id)
+    //                             ->firstOrFail();
+
+    // $contacts = UserRoom::where('room_id',$room_id)->get();
+
+    // $contact_id = $request->input('contact_id');
+    // $pass = $request->input('n1') . $request->input('n2') . $request->input('n3') . $request->input('n4');
+    // $money = $request->input('money');
+    // $comment = $request->input('comment') ?? 'Transferencia electrónica';
+
+    // $type = $request->input('type'); //BANK : USER
+
+    // if ($type == 'USER') {
+    //   if ($pass == $user_room->getPassword()) {
+    //     if ($user_room->money > 0 && $user_room->money >= $money) {
+    //       // a quien deposita?
+    //       $tr = new Transaction();
+    //       $tr->room_id = $room_id;
+    //       $tr->user_room_id = $user_room->id;
+    //       $tr->money_bank = false;
+    //       $tr->transmitter_user_id = $user_room->id; //usuario que se inscribio | 0 banco
+    //       $tr->receiver_user_id = $contact_id;       //usuario que se inscribio | 0 banco
+    //       $tr->config = [
+    //         'comment' => $comment
+    //       ];
+    //       $tr->money = $money;
+    //       $tr->save();
+
+    //       $user_room->money -= $money;
+    //       $user_room->update();
+    //       if ($contact_id == 0) { // Banco
+    //         $r->banker_money += $money;
+    //         $r->update();
+    //       } else { // contact
+    //         $user_room_contact = UserRoom::where('room_id',$room_id)->find($contact_id);
+    //         $user_room_contact->money += $money;
+    //         $user_room_contact->update();
+    //       }
+    //       $status_code = 'success';
+    //       $status_resp = 'Enviado';
+    //     } else {
+    //       $status_resp = 'Error, No tienes fondos disponibles';
+    //     }
+    //   } else {
+    //     $status_resp = 'Error, GR PASS incorrecta';
+    //   }
+    // } else{
+    //   // Como banco
+    //   if ($r->banker_money > 0 && $r->banker_money >= $money) {
+    //       // a quien deposita?
+    //       $tr = new Transaction();
+    //       $tr->room_id = $room_id;
+    //       $tr->user_room_id = $user_room->id;
+    //       $tr->money_bank = true;
+    //       $tr->transmitter_user_id = 0; // soy el banco
+    //       $tr->receiver_user_id = $contact_id;
+    //       $tr->config = [
+    //         'comment' => $comment
+    //       ];
+    //       $tr->money = $money;
+    //       $tr->save();
+
+    //       $r->banker_money -= $money;
+    //       $r->update();
+
+    //       // contact
+    //       $user_room_contact = UserRoom::where('room_id',$room_id)->find($contact_id);
+    //       $user_room_contact->money += $money;
+    //       $user_room_contact->update();
+
+    //       $status_code = 'success';
+    //       $status_resp = 'Enviado';
+    //   } else {
+    //     $status_resp = 'Error, No tienes fondos disponibles';
+    //   }
+    // }
+
+    // return back()->with($status_code, $status_resp);
+  }
+
 }

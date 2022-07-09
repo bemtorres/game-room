@@ -26,6 +26,8 @@ Route::middleware('usuario')->group( function () {
   Route::get('game_banco/{room_id}/play','Admin\Bank\GameController@play')->name('game.bank.play');
   Route::get('game_banco/{room_id}/play_banker','Admin\Bank\GameController@playBanker')->name('game.bank.play_banker');
   Route::post('game_banco/{room_id}/transfer','Admin\Bank\GameController@transfer')->name('game.bank.transfer');
+  Route::post('game_banco/{room_id}/collect','Admin\Bank\GameController@collect')->name('game.bank.collect');
+  Route::post('game_banco/{room_id}/payment','Admin\Bank\GameController@payment')->name('game.bank.payment');
   Route::put('game_banco/{room_id}/profile','Admin\Bank\GameController@profile')->name('game.bank.profile');
   Route::put('game_banco/{room_id}/avatar','Admin\Bank\GameController@avatar')->name('game.bank.avatar');
 

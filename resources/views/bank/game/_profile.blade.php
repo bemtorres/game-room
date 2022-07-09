@@ -7,7 +7,7 @@
         <img src="{{ asset($r->getPhoto()) }}" class="rounded-circle shadow-lg mg-fluid border border-dark border-3" width="100" height="100" alt="">
       </div>
       <div class="col-8 col-md-8">
-        <h4 class="pt-2 h4 fw-bold">Banco {{ $r->name }}</h4>
+        <h4 class="pt-2 h4 fw-bold">{{ $r->name }}</h4>
         <a href="{{ route('game.bank.play',$r->id) }}" class="btn btn-warning">Regresar como jugador</a>
       </div>
     </div>
@@ -46,7 +46,7 @@
       <div class="row">
         <div class="card-body">
           <h5 class="card-title text-dark fw-bold">Mi Saldo</h5>
-          <h3 class="fw-bold">$ {{ $user_room->getMoney() }}</h3>
+          <h3 class="fw-bold">$ <span id="money_balance">{{ $user_room->getMoney() }}</span></h3>
         </div>
       </div>
     </div>
