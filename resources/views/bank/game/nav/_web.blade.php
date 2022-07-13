@@ -13,7 +13,7 @@
     </button>
   </li>
   <li class="nav-item" role="presentation">
-    <button class="nav-link" id="pills-payment-tab" data-bs-toggle="pill" data-bs-target="#pills-payment" type="button" role="tab" aria-controls="pills-payment" aria-selected="false">
+    <button class="nav-link" id="pills-charge-tab" data-bs-toggle="pill" data-bs-target="#pills-charge" type="button" role="tab" aria-controls="pills-charge" aria-selected="false">
       <i class="fa-2x bi bi-cash-coin"></i>
       <span class="small d-block">Cobrar</span>
     </button>

@@ -16,6 +16,7 @@
           @csrf
 
           <input type="hidden" name="contact_id" id="modalpt-contact">
+          <input type="hidden" name="request_id" id="modalpt-request">
           <input type="hidden" name="type" value="{{ $isBanker ? 'BANK' : 'USER' }}">
 
           <div class="d-flex align-items-center mb-3">
@@ -49,12 +50,17 @@
           @endif
 
           <div class="d-grid gap-2 mb-2">
-            <button type="submit" id="btn-to-pay" disabled class="btn btn-lg btn-primary p-3"><strong>PAGAR</strong></button>
+            <button type="submit" id="btn-to-pay" class="btn btn-lg btn-primary p-3"><strong>PAGAR</strong></button>
           </div>
         </form>
-        <div class="d-grid gap-2">
-          <button type="submit" id="btn-transfer" class="btn btn-lg btn-danger p-3"><strong>CANCELAR</strong></button>
-        </div>
+        <form class="form-submit" action="{{ route('game.bank.charge_cancel', $r->id) }}" method="post">
+          @csrf
+          @method('DELETE')
+          <input type="hidden" name="request_id" id="modalptcanecel-request">
+          <div class="d-grid gap-2">
+              <button type="submit" id="btn-transfer" class="btn btn-lg btn-danger p-3"><strong>CANCELAR</strong></button>
+            </div>
+          </form>
       </div>
     </div>
   </div>

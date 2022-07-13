@@ -19,7 +19,7 @@ class CreateTableUsersRooms extends Migration
             $table->foreignId('user_id')->references('id')->on('users');
             $table->integer('loto_id')->nullable();
             // $table->foreignId('loto_id')->references('id')->on('loto_cards');
-            $table->double('money', 15, 2)->nullable(); //dinero del banco
+            $table->double('money', 20, 2)->nullable(); //dinero del banco
             $table->boolean('banker')->nullable(); //banquero
 
             $table->json('config')->nullable();

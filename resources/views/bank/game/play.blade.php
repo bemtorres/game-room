@@ -23,8 +23,8 @@
               <div class="tab-pane fade" id="pills-transfer" role="tabpanel" aria-labelledby="pills-transfer-tab" tabindex="0">
                 @include('bank.game.tab._transfer')
               </div>
-              <div class="tab-pane fade" id="pills-payment" role="tabpanel" aria-labelledby="pills-payment-tab" tabindex="0">
-                @include('bank.game.tab._payment')
+              <div class="tab-pane fade" id="pills-charge" role="tabpanel" aria-labelledby="pills-charge-tab" tabindex="0">
+                @include('bank.game.tab._charge')
               </div>
               <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
                 @include('bank.game.tab._profile')
@@ -39,7 +39,7 @@
 @include('bank.game.nav._mobile')
 @include('bank.game.modal._transfer')
 @include('bank.game.modal._payment')
-@include('bank.game.modal._collect')
+@include('bank.game.modal._charge')
 @include('bank.game.modal._avatar')
 
 @endsection
@@ -77,6 +77,7 @@
     }
   }
 
+  // transferencia
   const modalTransfer = document.getElementById("transferModal");
   modalTransfer.addEventListener("show.bs.modal", event => {
     var reference_tag = $(event.relatedTarget);
@@ -90,32 +91,39 @@
     $("#modal-nickname").text(nickname);
   });
 
-  const modalPayment = document.getElementById("paymentModal");
-  modalPayment.addEventListener("show.bs.modal", event => {
+  // cobrar
+  const modalCharge = document.getElementById("chargeModal");
+  modalCharge.addEventListener("show.bs.modal", event => {
     var reference_tag = $(event.relatedTarget);
 
     let contact = reference_tag.data("contact");
     let img = reference_tag.data("img");
     let nickname = reference_tag.data("nickname");
 
-    $("#modalp-contact").val(contact);
-    $("#modalp-img").attr("src",img);
-    $("#modalp-nickname").text(nickname);
+    $("#modalcharge-contact").val(contact);
+    $("#modalcharge-img").attr("src",img);
+    $("#modalcharge-nickname").text(nickname);
   });
 
+  // pagar
   const modalToPay = document.getElementById("topayModal");
   modalToPay.addEventListener("show.bs.modal", event => {
     var reference_tag = $(event.relatedTarget);
 
     let contact = reference_tag.data("contact");
+    let request = reference_tag.data("request");
     let img = reference_tag.data("img");
     let nickname = reference_tag.data("nickname");
+    let money = reference_tag.data("money");
+    let comment = reference_tag.data("comment");
 
     $("#modalpt-contact").val(contact);
+    $("#modalpt-request").val(request);
+    $("#modalptcanecel-request").val(request);
     $("#modalpt-img").attr("src",img);
     $("#modalpt-nickname").text(nickname);
-    $("#modalpt_transfer").val("$ 1.000");
-    $("#modalpt_comment").val("Transferencia");
+    $("#modalpt_transfer").val(money);
+    $("#modalpt_comment").val(comment);
   });
 
 
@@ -149,6 +157,19 @@
       $("#btn-to-pay").removeAttr("disabled");
     } else {
       $("#btn-to-pay").attr("disabled", true);
+    }
+  }
+
+  $("#charge_n1").keyup(function() { validateFormCharge(); $("#charge_n2").focus(); });
+  $("#charge_n2").keyup(function() { validateFormCharge(); $("#charge_n3").focus(); });
+  $("#charge_n3").keyup(function() { validateFormCharge(); $("#charge_n4").focus(); });
+  $("#charge_n4").keyup(function() { validateFormCharge(); });
+
+  function validateFormCharge() {
+    if ($("#charge_n1").val() && $("#charge_n2").val() && $("#charge_n3").val() && $("#charge_n4").val()) {
+      $("#btn-charge").removeAttr("disabled");
+    } else {
+      $("#btn-charge").attr("disabled", true);
     }
   }
 </script>

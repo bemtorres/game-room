@@ -27,7 +27,7 @@ class CreateTableBank extends Migration
         $table->integer('transmitter_user_id')->nullable(); // emisor   - Que envia  [banco -1]
         $table->integer('receiver_user_id')->nullable();    // receptor - Que recibe [banco -1]
 
-        $table->double('money', 15, 2)->default(0);
+        $table->double('money', 20, 2)->default(0);
 
         $table->json('config')->nullable();
         $table->timestamps();
