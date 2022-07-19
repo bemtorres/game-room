@@ -1,6 +1,5 @@
-<p style="text-align: center;">
-  <img src="https://raw.githubusercontent.com/bemtorres/game-room/develop/public/background_gameroom.png" width="600">
-</p>
+<p align="center"><a href="https://bemtorres.win" target="_blank"><img src="https://raw.githubusercontent.com/bemtorres/game-room/develop/public/background_gameroom.png" width="600"></a></p>
+
 
 # GAMEROOM 🎮 🕹️
 Primer Sistema Contable <strong>Open Source</strong> para todo tipo de juegos
@@ -15,7 +14,7 @@ Crea salas e invita a tus amigos a jugar utlizando como herramienta de gestion G
 - Carga masiva a través de un archivo excel
 - Creación de cupones
 - Sistema interno de GR Coins para ingresar a las salas
-- Mantendor de Salas
+- Mantenedor de Salas
 - Trofeos
 
 ### 🪪 Sistema Loto 📇
@@ -52,10 +51,10 @@ Full Optimizado para jugar con el Celular
 - Los jugadores podrán ser este uso de dinero sólo en la sala
 
 
-## 👀 No es dinero de verdad y queda bajo su responsabilidad el uso de está herramienta 👀
+## 👀 No es dinero de verdad y queda bajo su responsabilidad el uso de está proyecto 👀
 
 
-# Repositorio
+# Instación del Repositorio
 
 ```shell
 git clone https://github.com/bemtorres/game-room
@@ -71,6 +70,7 @@ php artisan migrate:fresh --seed
 
 php artisan serve
 ```
+
 ## Users
 
 | TIPO  | username  | password  |
@@ -78,5 +78,18 @@ php artisan serve
 | Admin  | admin@admin.cl  | 123456  |
 | Usuario  | usuario@gameroom.cl | 123456 |
 
-## estamos usando
+
+# Estamos usando
 https://mdbootstrap.com/snippets/
+
+# Agradecimientos
+
+-
+-
+-
+-
+
+
+## License
+
+The RoomGame is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
