@@ -20,7 +20,7 @@ class LotoBingoSeeder extends Seeder
     {
 
         $u = new User();
-        $u->email = 'admin@admin.cl';
+        $u->email = 'admin@gameroom.cl';
         $u->password = hash('sha256','123456');
         $u->name = 'Benjamin';
         $u->phone = '5699999999';
@@ -35,7 +35,7 @@ class LotoBingoSeeder extends Seeder
         $a->save();
 
         $u = new User();
-        $u->email = 'usuario@admin.cl';
+        $u->email = 'usuario@gameroom.cl';
         $u->password = hash('sha256','123456');
         $u->name = 'Usuario';
         $u->phone = '5699999999';

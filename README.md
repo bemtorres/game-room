@@ -1,48 +1,35 @@
 <p alling="center">
-  <img src="">
+  <img src="https://raw.githubusercontent.com/bemtorres/game-room/develop/public/background_gameroom.png" width="600">
 </p>
 
-# Dinobox MINISHOP project
+# GAMEROOM 🎮 🕹️
+Primer sistema <strong>Open Source</strong> para todo tipo de juegos
 
-Laravel Framework 8.0
-VERSION PROJECT 2021.0
 
-#### Repositorio
+
+
+# Repositorio
+
 ```shell
-composer install
-```
+git clone https://github.com/bemtorres/game-room
+cd game-room
 
-Copy .env
-```shell
 cp .env.example .env
-```
+composer install
 
-```shell
+npm install
+npm run prod
 
 php artisan migrate:fresh --seed
 
+php artisan serve
 ```
 ## Users
 
 | TIPO  | username  | password  |
 |---|---|---|
-| Admin  | admin  | 123456  |
-| Usuario  | usuario1  | 123456 |
-
-### Inicial con forma de seed
-```shell
-php artisan storage:link
-composer dump-autoload
-
-php artisan migrate:fresh --seed
-```
-
-### Inicial laravel-mix mode dev
-```shell
-npm install
-npm run prod
-```
-
+| Admin  | admin@admin.cl  | 123456  |
+| Usuario  | usuario@gameroom.cl | 123456 |
 
 ## estamos usando
 https://mdbootstrap.com/snippets/
