@@ -1,5 +1,12 @@
 @extends('layouts.app_simple')
 @push('stylesheet')
+
+<style>
+  body {
+    background-image: url("{{ asset('background_gameroom.png') }}") !important;
+  }
+</style>
+
 @endpush
 @section('content')
   <main class="d-flex w-100">
@@ -18,9 +25,9 @@
             <div class="card">
               <div class="card-body">
                 <div class="m-sm-4">
-                  {{-- <div class="text-center">
-                    <img src="img/avatars/avatar.jpg" alt="Charles Hall" class="img-fluid rounded-circle" width="132" height="132" />
-                  </div> --}}
+                  <div class="text-center">
+                    <img src="{{ asset('RoomGame.svg') }}" alt="gameroom" class="img-fluid rounded-circle" width="90" height="90" />
+                  </div>
                   <form class="form-signin form-submit" action="{{ route('root') }}" method="post">
                     @csrf
                     <div class="mb-3">

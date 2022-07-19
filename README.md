@@ -1,3 +1,7 @@
+<p alling="center">
+  <img src="">
+</p>
+
 # Dinobox MINISHOP project
 
 Laravel Framework 8.0
