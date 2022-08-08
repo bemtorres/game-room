@@ -21,7 +21,7 @@
   {{-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> --}}
   <div class="row">
     <div class="col-12 col-md-6 mb-2 mb-md-0">
-      <i class="bi bi-bell-fill me-md-2"></i>
+      <i class="bi fa-lg bi-bell-fill me-md-2"></i>
       Tienes una solicitud de cobro por <strong>{{ $name_pr }}</strong> de <strong>$ {{ $money_pr }}</strong>
     </div>
     <div class="col-12 col-md-6">
