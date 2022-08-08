@@ -3,6 +3,10 @@
     background: #d9dbe0 !important;
   }
 
+  .cursor {
+    cursor: pointer;
+  }
+
   .my-custom-scrollbar {
     position: relative;
     height: {{ $isMobile ? '240px' : '340px' }};

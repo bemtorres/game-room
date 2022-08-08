@@ -18,7 +18,7 @@
           <th>Password</th>
           <th>Tipo</th>
           <th>Usuarios</th>
-          <th><img src="{{ asset('RoomGame.svg') }}" width="20" height="20" class="ms-2" />Credito</th>
+          <th><img src="{{ asset('RoomGame.svg') }}" width="20" height="20" class="me-2" />Credito</th>
           <th></th>
         </tr>
         </thead>

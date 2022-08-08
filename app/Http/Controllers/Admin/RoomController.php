@@ -19,8 +19,8 @@ class RoomController extends Controller
   public function index() {
     $this->policy->admin();
 
-    $rooms = Room::get();
-    // $rooms = Room::where('active',true)->get();
+    $rooms = Room::orderBy('id','desc')->get();
+
     return view('room.index',compact('rooms'));
   }
 

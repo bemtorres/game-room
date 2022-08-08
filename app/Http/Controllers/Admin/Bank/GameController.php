@@ -154,8 +154,27 @@ class GameController extends Controller
     }
   }
 
+  //
+  // Transferir a otros
+  //
+  // $room_id - Room que estas
+  //
+  // Request
+  // --- Usuario ---
+  //    * contact_id: [0] Banco - rooms_users
+  //    * type:       USER
+  //    * money:      dinero enviado
+  //    * comment:    comentario o asunto
+  //    * n1.n2.n3.n4:codigo de transacción
+  //
+  // --- Banco ---
+  //    * contact_id: rooms_users usuario inscrito en ese momento
+  //    * type:       BANK
+  //    * money:      1000 dinero
+  //    * comment:    comentario o asunto
+  //
   public function transfer(Request $request, $room_id) {
-    $status_code = 'error';
+    $status_code = 'danger';
     $status_resp = 'Error intente nuevamente';
 
     $r = Room::where('active',true)->where('status','<>',4)->findOrFail($room_id);
@@ -203,6 +222,7 @@ class GameController extends Controller
         }
       } else {
         $status_resp = 'Error, GR PASS incorrecta';
+        $status_code = 'warning';
       }
     } else{
       // Como banco
@@ -361,6 +381,11 @@ class GameController extends Controller
 
   // pagar
   public function payment(Request $request, $room_id) {
+
+    $room = Room::find($room_id);
+
+
+
     return $request;
     // $status_code = 'error';
     // $status_resp = 'Error intente nuevamente';
