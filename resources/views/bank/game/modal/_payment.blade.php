@@ -30,12 +30,12 @@
 
           <div class="mb-3">
             <label class="form-label text-lg">Monto solicitado</label>
-            <input class="form-control form-control-lg" type="text" readonly type="text" id="modalpt_transfer" required>
+            <input class="form-control form-control-lg" type="text" readonly id="modalpt_transfer">
           </div>
 
           <div class="mb-3">
             <label class="form-label text-lg">Asunto</label>
-            <input class="form-control form-control-lg" readonly type="text" id="modalpt_comment" name="comment">
+            <input class="form-control form-control-lg" type="text" readonly id="modalpt_comment">
           </div>
 
           @php

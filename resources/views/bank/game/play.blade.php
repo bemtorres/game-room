@@ -107,27 +107,29 @@
 
   // pagar
   const modalToPay = document.getElementById("topayModal");
-  modalToPay.addEventListener("show.bs.modal", event => {
-    var reference_tag = $(event.relatedTarget);
+  if (modalToPay) {
+    modalToPay.addEventListener("show.bs.modal", event => {
+      var reference_tag = $(event.relatedTarget);
 
-    let contact = reference_tag.data("contact");
-    let request = reference_tag.data("request");
-    let img = reference_tag.data("img");
-    let nickname = reference_tag.data("nickname");
-    let money = reference_tag.data("money");
-    let comment = reference_tag.data("comment");
-    let token = reference_tag.data("tokenpay");
+      let contact = reference_tag.data("contact");
+      let request = reference_tag.data("request");
+      let img = reference_tag.data("img");
+      let nickname = reference_tag.data("nickname");
+      let money = reference_tag.data("money");
+      let comment = reference_tag.data("comment");
+      let token = reference_tag.data("tokenpay");
 
-    $("#modalpt-contact").val(contact);
-    $("#modalpt-request").val(request);
-    $("#modalptcancel-request").val(request);
-    $("#modalpt-img").attr("src",img);
-    $("#modalpt-nickname").text(nickname);
-    $("#modalpt_transfer").val(money);
-    $("#modalpt_comment").val(comment);
-    $("#modalpt-token").val(token);
-    $("#modalptcancel-token").val(token);
-  });
+      $("#modalpt-contact").val(contact);
+      $("#modalpt-request").val(request);
+      $("#modalptcancel-request").val(request);
+      $("#modalpt-img").attr("src",img);
+      $("#modalpt-nickname").text(nickname);
+      $("#modalpt_transfer").val(money);
+      $("#modalpt_comment").val(comment);
+      $("#modalpt-token").val(token);
+      $("#modalptcancel-token").val(token);
+    });
+  }
 
 
   $("#nickname").keyup(function() { validateForm2(); });
