@@ -9,7 +9,7 @@
 
   .my-custom-scrollbar {
     position: relative;
-    height: {{ $isMobile ? '240px' : '340px' }};
+    height: {{ $isMobile ? '260px' : '340px' }};
     overflow: auto;
   }
 

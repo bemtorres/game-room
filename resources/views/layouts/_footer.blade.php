@@ -9,7 +9,7 @@
       <div class="col-6 text-end">
         <ul class="list-inline">
           <li class="list-inline-item">
-            Versión 0.1.0
+            Versión {{ H_GAMEROOM_VERSION }}
           </li>
         </ul>
       </div>

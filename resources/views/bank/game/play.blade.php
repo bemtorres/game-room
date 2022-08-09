@@ -32,6 +32,9 @@
             </div>
           </div>
         </div>
+        <small class="text-muted text-center">
+          v{{  H_GAMEROOM_VERSION }}
+        </small>
       </div>
     </div>
   </main>
@@ -41,6 +44,7 @@
 @include('bank.game.modal._payment')
 @include('bank.game.modal._charge')
 @include('bank.game.modal._avatar')
+
 
 @endsection
 @push("javascript")
