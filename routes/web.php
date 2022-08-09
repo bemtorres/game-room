@@ -30,7 +30,7 @@ Route::middleware('usuario')->group( function () {
   Route::prefix('game_banco')->name('game.bank.')->group( function () {
     Route::get('/{room_id}', [BankGameController::class, 'show'])->name('show');
     Route::post('/{room_id}', [BankGameController::class, 'enrollment'])->name('enrollment');
-    Route::get('/{room_id}/play', [BankGameController::class, 'play'])->name('game.bank.play');
+    Route::get('/{room_id}/play', [BankGameController::class, 'play'])->name('play');
     Route::get('/{room_id}/play_banker', [BankGameController::class, 'playBanker'])->name('play_banker');
     Route::post('/{room_id}/transfer', [BankGameController::class, 'transfer'])->name('transfer');
     Route::post('/{room_id}/charge', [BankGameController::class, 'charge'])->name('charge');
