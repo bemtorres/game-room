@@ -116,14 +116,17 @@
     let nickname = reference_tag.data("nickname");
     let money = reference_tag.data("money");
     let comment = reference_tag.data("comment");
+    let token = reference_tag.data("tokenpay");
 
     $("#modalpt-contact").val(contact);
     $("#modalpt-request").val(request);
-    $("#modalptcanecel-request").val(request);
+    $("#modalptcancel-request").val(request);
     $("#modalpt-img").attr("src",img);
     $("#modalpt-nickname").text(nickname);
     $("#modalpt_transfer").val(money);
     $("#modalpt_comment").val(comment);
+    $("#modalpt-token").val(token);
+    $("#modalptcancel-token").val(token);
   });
 
 

@@ -46,7 +46,6 @@
                   $name = $trans->transmitter_user->getNickname() ?? '';
                 }
               }
-
             @endphp
             <tr>
               @component('bank.game._list_pay')

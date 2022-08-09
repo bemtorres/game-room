@@ -1,4 +1,5 @@
 {{-- Modal TOPAY --}}
+@if ($payment_requests)
 <div class="modal fade" id="topayModal" tabindex="-1" aria-labelledby="topayModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -17,6 +18,7 @@
 
           <input type="hidden" name="contact_id" id="modalpt-contact">
           <input type="hidden" name="request_id" id="modalpt-request">
+          <input type="hidden" name="token_payment" id="modalpt-token">
           <input type="hidden" name="type" value="{{ $isBanker ? 'BANK' : 'USER' }}">
 
           <div class="d-flex align-items-center mb-3">
@@ -36,7 +38,16 @@
             <input class="form-control form-control-lg" readonly type="text" id="modalpt_comment" name="comment">
           </div>
 
-          @if (!$isBanker)
+          @php
+              $is_saldo = false;
+              $saldo = $isBanker ? $r->banker_money : $user_room->money;
+
+              if ($payment_requests->money <= $saldo) {
+                $is_saldo = true;
+              }
+          @endphp
+
+          @if (!$isBanker && $is_saldo)
           <div class="mb-3 row">
             <label class="form-label text-lg">
               Ingresa tu <span class="btn-label"><img src="{{ asset("RoomGame.svg") }}" width="20" height="20" class="ms-2" /></span>
@@ -50,13 +61,23 @@
           @endif
 
           <div class="d-grid gap-2 mb-2">
-            <button type="submit" id="btn-to-pay" class="btn btn-lg btn-primary p-3"><strong>PAGAR</strong></button>
+            @if (!$is_saldo)
+              <button type="button" id="btn-to-pay" class="btn btn-lg btn-secondary p-3">
+                <strong>NO TIENES SALDO DISPONIBLE</strong>
+              </button>
+            @else
+              <button type="submit" id="btn-to-pay" class="btn btn-lg btn-primary p-3">
+                <strong>PAGAR</strong>
+              </button>
+            @endif
           </div>
         </form>
         <form class="form-submit" action="{{ route('game.bank.charge_cancel', $r->id) }}" method="post">
           @csrf
           @method('DELETE')
-          <input type="hidden" name="request_id" id="modalptcanecel-request">
+          <input type="hidden" name="request_id" id="modalptcancel-request">
+          <input type="hidden" name="token_payment" id="modalptcancel-token">
+          <input type="hidden" name="type" value="{{ $isBanker ? 'BANK' : 'USER' }}">
           <div class="d-grid gap-2">
               <button type="submit" id="btn-transfer" class="btn btn-lg btn-danger p-3"><strong>CANCELAR</strong></button>
             </div>
@@ -65,3 +86,4 @@
     </div>
   </div>
 </div>
+@endif

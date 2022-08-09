@@ -39,21 +39,8 @@
             <input class="form-control form-control-lg" type="text" id="comment_modalcharge" name="comment">
           </div>
 
-          @if (!$isBanker)
-          <div class="mb-3 row">
-            <label class="form-label text-lg">
-              Ingresa tu <span class="btn-label"><img src="{{ asset("RoomGame.svg") }}" width="20" height="20" class="ms-2" /></span>
-              <strong class="text-success">GR PASS</strong>
-            </label>
-            <input type="number" class="col mx-2 form-control form-control-lg text-center fw-bold" id="charge_n1" name="n1" min="0" max="9" maxlength="1" maxlength="1" pattern="[0-9]+"  title="Formato: 1 digito" required>
-            <input type="number" class="col mx-2 form-control form-control-lg text-center fw-bold" id="charge_n2" name="n2" min="0" max="9" maxlength="1" pattern="[0-9]+"  title="Formato: 1 digito" required>
-            <input type="number" class="col mx-2 form-control form-control-lg text-center fw-bold" id="charge_n3" name="n3" min="0" max="9" maxlength="1" pattern="[0-9]+"  title="Formato: 1 digito" required>
-            <input type="number" class="col mx-2 form-control form-control-lg text-center fw-bold" id="charge_n4" name="n4" min="0" max="9" maxlength="1" pattern="[0-9]+"  title="Formato: 1 digito" required>
-          </div>
-          @endif
-
           <div class="d-grid gap-2">
-            <button type="submit" id="btn-charge" disabled class="btn btn-lg btn-primary p-3"><strong>COBRAR</strong></button>
+            <button type="submit" id="btn-charge" class="btn btn-lg btn-primary p-3"><strong>COBRAR</strong></button>
           </div>
         </form>
       </div>

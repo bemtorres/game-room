@@ -33,6 +33,7 @@
         data-nickname="{{ $name_pr }}"
         data-money="{{ $money_pr }}"
         data-comment="{{ $comment_pr }}"
+        data-tokenpay="{{ $payment_requests->token }}"
         >
           <i class="bi bi-credit-card-2-front-fill me-2"></i>
           <strong>PAGAR</strong>

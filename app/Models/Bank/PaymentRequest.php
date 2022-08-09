@@ -18,9 +18,13 @@ class PaymentRequest extends Model
     'config' => Json::class,
   ];
 
+  const STATUS_SEND = 1;
+  const STATUS_ACCEPT = 2;
+  const STATUS_CANCEL = 3;
+
   const STATUS = [
     1 => 'enviado',
-    2 => 'recibido',
+    2 => 'aceptado',
     3 => 'cancelado'
   ];
 

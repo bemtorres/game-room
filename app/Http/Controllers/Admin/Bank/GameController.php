@@ -13,6 +13,7 @@ use App\Models\User;
 use App\Models\UserRoom;
 use App\Services\Policies\PolicyModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 
 class GameController extends Controller
@@ -154,23 +155,59 @@ class GameController extends Controller
     }
   }
 
+  public function profile(Request $request, $room_id) {
+    $pass = $request->input('n1') . $request->input('n2') . $request->input('n3') . $request->input('n4');
+    $nickname = $request->input('nickname');
+
+    $user_room = UserRoom::where('room_id',$room_id)
+                            ->where('user_id',current_user()->id)
+                            ->firstOrFail();
+
+    $config = $user_room->config;
+    $config['pass'] = $pass;
+    $config['nickname'] = $nickname;
+    $config['color'] = $request->input('color');
+    $user_room->config = $config;
+    $user_room->update();
+
+    return back()->with('success', 'actualizado');
+  }
+
+  public function avatar(Request $request, $room_id) {
+    $user_room = UserRoom::where('room_id',$room_id)
+                            ->where('user_id',current_user()->id)
+                            ->firstOrFail();
+
+    $config = $user_room->config;
+    $config['img'] = $request->input('imagen');
+    $user_room->config = $config;
+    $user_room->update();
+
+    return back()->with('success', 'actualizado');
+  }
+
   //
-  // Transferir a otros
+  // --- MOVIMIENTO ---
+  //
+
+  //
+  // --- TRANSFERIR ---
+  // Enviar dinero a otro
   //
   // $room_id - Room que estas
   //
   // Request
   // --- Usuario ---
-  //    * contact_id: [0] Banco - rooms_users
+  //    * contact_id: [0] Banco - rooms_users - ¿A quién le envio dinero?
   //    * type:       USER
-  //    * money:      dinero enviado
+  //    * money:      dinero a enviado
   //    * comment:    comentario o asunto
   //    * n1.n2.n3.n4:codigo de transacción
   //
   // --- Banco ---
-  //    * contact_id: rooms_users usuario inscrito en ese momento
+  //    * contact_id: rooms_users usuario inscrito en ese momento - ¿A quién le envio dinero?
   //    * type:       BANK
-  //    * money:      1000 dinero
+  //    * money:      dinero a enviado
   //    * comment:    comentario o asunto
   //
   public function transfer(Request $request, $room_id) {
@@ -203,6 +240,7 @@ class GameController extends Controller
             'comment' => $comment
           ];
           $tr->money = $money;
+          $tr->token = Str::upper(md5(time() . '-' . $room_id));
           $tr->save();
 
           $user_room->money -= $money;
@@ -219,10 +257,11 @@ class GameController extends Controller
           $status_resp = 'Enviado';
         } else {
           $status_resp = 'Error, No tienes fondos disponibles';
+          $status_code = 'info';
         }
       } else {
         $status_resp = 'Error, GR PASS incorrecta';
-        $status_code = 'warning';
+        $status_code = 'info';
       }
     } else{
       // Como banco
@@ -237,6 +276,7 @@ class GameController extends Controller
           $tr->config = [
             'comment' => $comment
           ];
+          $tr->token = Str::upper(md5(time() . '-' . $room_id));
           $tr->money = $money;
           $tr->save();
 
@@ -251,6 +291,7 @@ class GameController extends Controller
           $status_code = 'success';
           $status_resp = 'Enviado';
       } else {
+        $status_code = 'info';
         $status_resp = 'Error, No tienes fondos disponibles';
       }
     }
@@ -258,40 +299,28 @@ class GameController extends Controller
     return back()->with($status_code, $status_resp);
   }
 
-  public function profile(Request $request, $room_id) {
-    $pass = $request->input('n1') . $request->input('n2') . $request->input('n3') . $request->input('n4');
-    $nickname = $request->input('nickname');
-
-    $user_room = UserRoom::where('room_id',$room_id)
-                            ->where('user_id',current_user()->id)
-                            ->firstOrFail();
-
-    $config = $user_room->config;
-    $config['pass'] = $pass;
-    $config['nickname'] = $nickname;
-    $config['color'] = $request->input('color');
-    $user_room->config = $config;
-    $user_room->update();
-
-    return back()->with('success', 'actualizado');
-  }
-
-  public function avatar(Request $request, $room_id) {
-    $user_room = UserRoom::where('room_id',$room_id)
-                            ->where('user_id',current_user()->id)
-                            ->firstOrFail();
-
-    $config = $user_room->config;
-    $config['img'] = $request->input('imagen');
-    $user_room->config = $config;
-    $user_room->update();
-
-    return back()->with('success', 'actualizado');
-  }
-
-  // cobrar
+  //
+  // --- COBRAR ---
+  // Cobrar dinero a otro
+  //
+  // $room_id - Room que estas
+  //
+  // Request
+  // --- Usuario ---
+  //    * contact_id: [0] Banco - rooms_users - ¿A quién le cobro dinero?
+  //    * type:       USER
+  //    * money:      dinero solicitado
+  //    * comment:    comentario o asunto
+  //    * n1.n2.n3.n4:codigo de transacción
+  //
+  // --- Banco ---
+  //    * contact_id: rooms_users usuario inscrito en ese momento - ¿A quién le cobro dinero?
+  //    * type:       BANK
+  //    * money:      1000 dinero solicitado
+  //    * comment:    comentario o asunto
+  //
   public function charge(Request $request, $room_id) {
-    $status_code = 'error';
+    $status_code = 'danger';
     $status_resp = 'Error intente nuevamente';
 
     $r = Room::where('active',true)->where('status','<>',4)->findOrFail($room_id);
@@ -302,88 +331,92 @@ class GameController extends Controller
     $contact_id = $request->input('contact_id');
     $pass = $request->input('n1') . $request->input('n2') . $request->input('n3') . $request->input('n4');
     $money = $request->input('money');
-    $comment = $request->input('comment') ?? 'Solcitiud de pago electrónica';
+    $comment = $request->input('comment') ?? 'Solcitiud de pago electrónico';
 
     $type = $request->input('type'); //BANK : USER
 
     if ($type == 'USER') {
-      if ($pass == $user_room->getPassword()) {
-        // if ($user_room->money > 0 && $user_room->money >= $money) {
-          // a quien deposita?
-          $pr = new PaymentRequest();
-          $pr->room_id = $room_id;
-          $pr->user_room_id = $user_room->id;
-          $pr->money_bank = false;
-          $pr->transmitter_user_id = $user_room->id; //usuario que se inscribio | 0 banco
-          $pr->receiver_user_id = $contact_id;       //usuario que se inscribio | 0 banco
-          $pr->config = [
-            'comment' => $comment
-          ];
-          $pr->money = $money;
-          $pr->save();
+      // a quien solicito?
+      $pr = new PaymentRequest();
+      $pr->room_id = $room_id;
+      $pr->user_room_id = $user_room->id;
+      $pr->money_bank = false;
+      $pr->transmitter_user_id = $user_room->id; //usuario que se inscribio | 0 banco
+      $pr->receiver_user_id = $contact_id;       //usuario que se inscribio | 0 banco
+      $pr->config = [
+        'comment' => $comment
+      ];
+      $pr->money = $money;
+      $pr->token = Str::upper(md5(time() . '-' . $room_id));
+      $pr->save();
 
-          // $user_room->money -= $money;
-          // $user_room->update();
-          // if ($contact_id == 0) { // Banco
-          //   $r->banker_money += $money;
-          //   $r->update();
-          // } else { // contact
-          //   $user_room_contact = UserRoom::where('room_id',$room_id)->find($contact_id);
-          //   $user_room_contact->money += $money;
-          //   $user_room_contact->update();
-          // }
-          $status_code = 'success';
-          $status_resp = 'Enviado';
-        // } else {
-        //   $status_resp = 'Error, No tienes fondos disponibles';
-        // }
-      } else {
-        $status_resp = 'Error, GR PASS incorrecta';
-      }
+      $status_code = 'success';
+      $status_resp = 'Enviado';
+
     } else{
       // Como banco
-      // if ($r->banker_money > 0 && $r->banker_money >= $money) {
-          // a quien deposita?
-          $pr = new PaymentRequest();
-          $pr->room_id = $room_id;
-          $pr->user_room_id = $user_room->id;
-          $pr->money_bank = true;
-          $pr->transmitter_user_id = 0; // soy el banco
-          $pr->receiver_user_id = $contact_id;
-          $pr->config = [
-            'comment' => $comment
-          ];
-          $pr->money = $money;
-          $pr->save();
+      $pr = new PaymentRequest();
+      $pr->room_id = $room_id;
+      $pr->user_room_id = $user_room->id;
+      $pr->money_bank = true;
+      $pr->transmitter_user_id = 0; // soy el banco
+      $pr->receiver_user_id = $contact_id;
+      $pr->config = [
+        'comment' => $comment
+      ];
+      $pr->money = $money;
+      $pr->token = Str::upper(md5(time() . '-' . $room_id));
+      $pr->save();
 
-          // $r->banker_money -= $money;
-          // $r->update();
-
-          // // contact
-          // $user_room_contact = UserRoom::where('room_id',$room_id)->find($contact_id);
-          // $user_room_contact->money += $money;
-          // $user_room_contact->update();
-
-          $status_code = 'success';
-          $status_resp = 'Enviado';
-      // } else {
-      //   $status_resp = 'Error, No tienes fondos disponibles';
-      // }
+      $status_code = 'success';
+      $status_resp = 'Enviado';
     }
 
     return back()->with($status_code, $status_resp);
   }
 
-  public function charge_cancel(Request $request, $room_id)
-  {
-    return $request;
+
+
+  //
+  // --- CANCELAR COBRO ---
+  // Cancelar el cobro
+  //
+  // $room_id - Room que estas
+  //
+  // Request
+  // --- Usuario ---
+  //    * request_id: PaymentRequest->id
+  //    * type:       USER
+  //    * token_payment: TOKEN único
+  //
+  // --- Banco ---
+  //    * contact_id: rooms_users usuario inscrito en ese momento - ¿A quién le cobro dinero?
+  //    * type:       BANK
+  //    * money:      1000 dinero solicitado
+  //    * comment:    comentario o asunto
+  //
+  public function charge_cancel(Request $request, $room_id) {
+    try {
+      $request_id = $request->input('request_id');
+      $type = $request->input('type');
+      $token = $request->input('token_payment');
+
+      $r = Room::where('active',true)->where('status','<>',4)->findOrFail($room_id);
+      $pr = PaymentRequest::where('room_id', $room_id)
+                          ->where('token', $token)
+                          ->findOrFail($request_id);
+
+      $pr->status = PaymentRequest::STATUS_CANCEL;
+      $pr->update();
+
+      return back()->with('success', 'Cancelado');
+    } catch (\Throwable $th) {
+      return back()->with('danger', 'Error intente nuevamente');
+    }
   }
 
   // pagar
   public function payment(Request $request, $room_id) {
-
-    $room = Room::find($room_id);
-
 
 
     return $request;
