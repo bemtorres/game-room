@@ -8,7 +8,6 @@ use App\Models\Claim;
 use App\Models\LotoCard;
 use App\Models\Room;
 use App\Models\UserRoom;
-use App\Services\Policies\PolicyModel;
 use Illuminate\Http\Request;
 
 class GameController extends Controller
@@ -116,7 +115,6 @@ class GameController extends Controller
       }
       return redirect()->route('game.loto',[$r->id,$user_room->id])->with('info','Solicitud ya enviada');
     } catch (\Throwable $th) {
-      return $th;
       return redirect()->route('home')->with('info', 'Juego no disponible');
     }
   }

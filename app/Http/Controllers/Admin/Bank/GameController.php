@@ -406,7 +406,6 @@ class GameController extends Controller
     }
   }
 
-
   //
   // --- PAGAR COBRO ---
   // Pagar cobro
@@ -510,5 +509,4 @@ class GameController extends Controller
 
     return back()->with($status_code, $status_resp);
   }
-
 }

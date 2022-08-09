@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Admin\Bank\GameController as BankGameController;
+use App\Http\Controllers\Admin\GameController;
+use App\Http\Controllers\Admin\UsuarioController;
+
 Route::get('/','Auth\AuthController@index')->name('root');
 Route::post('/','Auth\AuthController@login')->name('root');
 
@@ -15,25 +19,27 @@ Route::middleware('usuario')->group( function () {
   // GAME
 
   // Loteria
-  Route::get('game/{room_id}','Admin\GameController@show')->name('game.show');
-  Route::post('game/{room_id}','Admin\GameController@enrollment')->name('game.enrollment');
-  Route::get('game/{room_id}/loto/{id}','Admin\GameController@loto')->name('game.loto');
-  Route::post('game/{room_id}/loto/{id}','Admin\GameController@claim')->name('game.claim');
+  Route::prefix('game')->group( function () {
+    Route::get('/{room_id}', [GameController::class, 'show'])->name('game.show');
+    Route::post('/{room_id}', [GameController::class, 'enrollment'])->name('game.enrollment');
+    Route::get('/{room_id}/loto/{id}', [GameController::class, 'loto'])->name('game.loto');
+    Route::post('/{room_id}/loto/{id}', [GameController::class, 'claim'])->name('game.claim');
+  });
 
   // Banco
-  Route::get('game_banco/{room_id}','Admin\Bank\GameController@show')->name('game.bank.show');
-  Route::post('game_banco/{room_id}','Admin\Bank\GameController@enrollment')->name('game.bank.enrollment');
-  Route::get('game_banco/{room_id}/play','Admin\Bank\GameController@play')->name('game.bank.play');
-  Route::get('game_banco/{room_id}/play_banker','Admin\Bank\GameController@playBanker')->name('game.bank.play_banker');
-  Route::post('game_banco/{room_id}/transfer','Admin\Bank\GameController@transfer')->name('game.bank.transfer');
-  Route::post('game_banco/{room_id}/charge','Admin\Bank\GameController@charge')->name('game.bank.charge');
-  Route::delete('game_banco/{room_id}/charge_cancel','Admin\Bank\GameController@charge_cancel')->name('game.bank.charge_cancel');
-  Route::post('game_banco/{room_id}/payment','Admin\Bank\GameController@payment')->name('game.bank.payment');
+  Route::prefix('game_banco')->name('game.bank.')->group( function () {
+    Route::get('/{room_id}', [BankGameController::class, 'show'])->name('show');
+    Route::post('/{room_id}', [BankGameController::class, 'enrollment'])->name('enrollment');
+    Route::get('/{room_id}/play', [BankGameController::class, 'play'])->name('game.bank.play');
+    Route::get('/{room_id}/play_banker', [BankGameController::class, 'playBanker'])->name('play_banker');
+    Route::post('/{room_id}/transfer', [BankGameController::class, 'transfer'])->name('transfer');
+    Route::post('/{room_id}/charge', [BankGameController::class, 'charge'])->name('charge');
+    Route::delete('/{room_id}/charge_cancel', [BankGameController::class, 'charge_cancel'])->name('charge_cancel');
+    Route::post('/{room_id}/payment', [BankGameController::class, 'payment'])->name('payment');
 
-  Route::put('game_banco/{room_id}/profile','Admin\Bank\GameController@profile')->name('game.bank.profile');
-  Route::put('game_banco/{room_id}/avatar','Admin\Bank\GameController@avatar')->name('game.bank.avatar');
-
-
+    Route::put('/{room_id}/profile', [BankGameController::class, 'profile'])->name('profile');
+    Route::put('/{room_id}/avatar', [BankGameController::class, 'avatar'])->name('avatar');
+  });
 
 
   // Cupones
@@ -42,13 +48,13 @@ Route::middleware('usuario')->group( function () {
   Route::get('cupon/{id}/people', 'Admin\CuponController@people')->name('cupon.people');
 
   Route::resource('usuarios', 'Admin\UsuarioController');
-  Route::get('usuario/admin', 'Admin\UsuarioController@admin')->name('user.admin');
-  Route::get('usuario/masiva', 'Admin\UsuarioController@masiva')->name('user.masiva');
-  Route::post('usuario/masiva', 'Admin\UsuarioController@import')->name('user.import');
-  Route::get('usuarios/{id}/game', 'Admin\UsuarioController@game')->name('user.game');
-  Route::put('usuarios/{id}/password', 'Admin\UsuarioController@password')->name('user.password');
-  Route::get('usuarios/{id}/credit', 'Admin\UsuarioController@creditos')->name('user.credit');
-  Route::put('usuarios/{id}/credit', 'Admin\UsuarioController@credit')->name('user.credit');
+  Route::get('usuario/admin', [UsuarioController::class, 'admin'])->name('user.admin');
+  Route::get('usuario/masiva',  [UsuarioController::class, 'masiva'])->name('user.masiva');
+  Route::post('usuario/masiva', [UsuarioController::class, 'import'])->name('user.import');
+  Route::get('usuarios/{id}/game', [UsuarioController::class, 'game'])->name('user.game');
+  Route::put('usuarios/{id}/password', [UsuarioController::class, 'password'])->name('user.password');
+  Route::get('usuarios/{id}/credit', [UsuarioController::class, 'creditos'])->name('user.credit');
+  Route::put('usuarios/{id}/credit', [UsuarioController::class, 'credit'])->name('user.credit');
 
 
   Route::resource('rooms', 'Admin\RoomController');
