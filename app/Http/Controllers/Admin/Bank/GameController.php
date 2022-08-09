@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Admin\Bank;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Jenssegers\Agent\Agent;
-
 use App\Http\Controllers\Controller;
 use App\Models\Account;
 use App\Models\Bank\PaymentRequest;
@@ -11,9 +12,6 @@ use App\Models\Bank\Transaction;
 use App\Models\Room;
 use App\Models\User;
 use App\Models\UserRoom;
-use App\Services\Policies\PolicyModel;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 
 class GameController extends Controller

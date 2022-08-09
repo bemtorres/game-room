@@ -4,7 +4,7 @@
 # GAMEROOM 🎮 🕹️
 Primer Sistema Contable <strong>Open Source</strong> para todo tipo de juegos
 
-Crea salas e invita a tus amigos a jugar utlizando como herramienta de gestion GAMEROOM
+Crea salas e invita a tus amigos a jugar utlizando como herramienta de gestión GAMEROOM
 
 # ¿Como jugar?
 
@@ -23,46 +23,46 @@ Crea salas e invita a tus amigos a jugar utlizando como herramienta de gestion G
 
 *Instrucciones:*
 - Juga al loto muy fácil, crea una sala e ingresa el costo para entrar.
-- Los jugadores podrán ingresar a la sala si cumplen con los requisitos, escogiendo el numero de cartón
-- Una vez inicio el **Líder** deberá dictando los números y anotarlos en el panel administrativo del juego
+- Los jugadores podrán ingresar a la sala si cumplen con los requisitos, escogiendo el número de cartón
+- Una vez inicio el **Líder** deberá dictar los números y anotarlos en el panel administrativo del juego
 - Los jugadores deberán ir seleccionando el numero si corresponde a su cartón
 - Si cumpletas todos los números te aparecerá una opción para reclamar el premio
 - El **Líder** verificará y
 asignará el lugar que quedaste en la calificación
 
-### 🏦 Sistema de Banco 💳💱
+### 🏦💰 Sistema de Banco 💰💳
 
 Has querido jugar algún juego de mesa que incluya un banco y no tienes los billetes. Está sala contiene un **microsistema bancarío** que te ayudará a
- - Transferir dinero
- - Solicitar dinero
- - Pagar
- - Ver historial de transacciones
- - Cambiar avatar
- - Cambiar nickname
- - Cambiar GR pass
+ - 💰 Transferir dinero
+ - 💸 Solicitar dinero
+ - 💳 Pagar
+ - 📜 Ver historial de transacciones
+ - 🥸 Cambiar avatar
+ - 🥸 Cambiar nickname
+ - 🔑 Cambiar GR pass
 
-Full Optimizado para jugar con el Celular
+📱 Full Optimizado para jugar con el **celular**
 
 *Instrucciones:*
 - Crea una sala e ingresa el costo para entrar.
 - Puedes hacer pública la sala y compartir un link para que otras personas se inscriban e ingresen directo al banco
-- Eligirás a uno o más de uno de los jugadores como Banquero, el se encargará se enviar dinero a los jugadores
+- Eligirás a uno o más de uno de los jugadores como Banquero, el se encargará de enviar dinero a los jugadores
 - El Banco cuenta como **$10.000.000** a repartir
 - Los jugadores podrán ser este uso de dinero sólo en la sala
 
 
-## 👀 No es dinero de verdad y queda bajo su responsabilidad el uso de está proyecto 👀
+## NOTA: 👀 No es dinero de verdad y queda bajo su responsabilidad el uso de este proyecto 👀
 
 
-# Instación del Repositorio
+# Instalación del Repositorio
 
 ```shell
 git clone https://github.com/bemtorres/game-room
 cd game-room
 
 cp .env.example .env
-composer install
 
+composer install
 npm install
 npm run prod
 
@@ -79,17 +79,26 @@ php artisan serve
 | Usuario  | usuario@gameroom.cl | 123456 |
 
 
+# Demostración
+
+## BANCO
+
+#### Historial
+<img src="https://raw.githubusercontent.com/bemtorres/game-room/develop/public/EXAMPLES/historial.png" width="300">
+
+#### Solicitud de pago
+<img src="https://raw.githubusercontent.com/bemtorres/game-room/develop/public/EXAMPLES/solicitud_pago.png" width="300">
+
+
 # Estamos usando
-https://mdbootstrap.com/snippets/
-
-# Agradecimientos
-
--
--
--
--
+- [free adminkit](https://adminkit.io/)
+- [bootstrap 5](https://getbootstrap.com/docs/5.0/getting-started/introduction/)
+- [iziToast](https://izitoast.marcelodolza.com/)
+- [spectrum-colorpicker2](https://seballot.github.io/spectrum/)
+- [datatables](https://datatables.net/)
+- [jquery3](https://seballot.github.io/spectrum/)
 
 
 ## License
 
-The RoomGame is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+The GameRoom is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
