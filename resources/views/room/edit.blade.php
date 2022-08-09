@@ -7,11 +7,8 @@
   <div class="container-fluid p-0">
     @include('room._tabs_show')
     <div class="row">
-      <div class="col-6 d-flex">
-        <div class="card flex-fill">
-          <div class="card-header">
-            {{-- <h5 class="card-title mb-0">Latest Projects</h5> --}}
-          </div>
+      <div class="col-12 col-md-6">
+        <div class="card">
           <form class="form-submit" action="{{ route('rooms.update',$r->id) }}" method="post">
             @csrf
             @method('PUT')
@@ -93,11 +90,100 @@
           </form>
         </div>
       </div>
+      @if ($r->type == 2)
+      <div class="col-12 col-md-6">
+        <div class="card">
+          <form class="form-submit" action="{{ route('rooms.update_v2',$r->id) }}" method="post">
+            @csrf
+            @method('PUT')
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-12">
+
+                  <div class="form-group row mb-3">
+                    {{-- <label for="inputURL" class="col-sm-4 col-form-label">URL PÚBLICA</label> --}}
+                    <div class="col-sm-12">
+                      <input type="text" class="form-control" readonly value="{{ route('app.room.share', $r->url) }}">
+                    </div>
+                  </div>
+
+
+                  <div class="form-group row mb-3">
+                    <label for="inputURL" class="col-sm-4 col-form-label">URL PÚBLICA</label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" id="inputURL" data-code="#inputURLCODE" name="url"  value="{{ $r->url }}"  placeholder="">
+                    </div>
+                  </div>
+
+                  <div class="form-group row mb-3">
+                    <label for="inputURLCODE" class="col-sm-4 col-form-label">URL FORMATO WEB</label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" readonly id="inputURLCODE" name="url_web"  value="{{ $r->url }}"  placeholder="">
+                    </div>
+                  </div>
+
+                  <div class="form-group row mb-3">
+                    <label for="inputURLCODE" class="col-sm-4 col-form-label">ACTIVAR WEB PÚBLICA</label>
+                    <div class="col-sm-8">
+                      <div class="form-check">
+                        <input class="form-check-input p-2" type="checkbox" name="enable_public" {{ $r->getConfigEnablePublic() ? 'checked' : '' }} />
+                        <label class="form-check-label ms-2" for="">
+                          Habilitar
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group row mb-3">
+                    <label for="inputURLCODE" class="col-sm-4 col-form-label">Registro rápido</label>
+                    <div class="col-sm-8">
+                      <div class="form-check">
+                        <input class="form-check-input p-2" type="checkbox" name="enable_register" {{ $r->getConfigEnableRegister() ? 'checked' : ''}} />
+                        <label class="form-check-label ms-2" for="">
+                          Habilitar
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+
+                  <div class="d-md-flex justify-content-md-end">
+                    <button class="btn btn-primary" type="submit">Guardar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      @endif
     </div>
   </div>
 </main>
 @endsection
 @push('javascript')
-<script src="{{ asset('vendor/dinobox/preview-image.js') }}"></script>
+<script>
+  $("#inputURL").keyup(function() {
+    $($(this).data("code")).val(makeSlug(this.value));
+  });
+
+function makeSlug(text) {
+  var a = 'àáäâèéëêìíïîòóöôùúüûñçßÿœæŕśńṕẃǵǹḿǘẍźḧ·/_,:;';
+  var b = 'aaaaeeeeiiiioooouuuuncsyoarsnpwgnmuxzh------';
+  var p = new RegExp(a.split('').join('|'), 'g');
+
+  return text.toString().toLowerCase().replace(/\s+/g, '-')
+    .replace(p, function(c) {
+      return b.charAt(a.indexOf(c));
+    })
+    .replace(/&/g, '-y-')
+    .replace(/[^\w\-]+/g, '')
+    .replace(/\-\-+/g, '-')
+    .replace(/^-+/, '')
+    .replace(/-+$/, '');
+}
+</script>
 
 @endpush

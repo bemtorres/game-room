@@ -30,7 +30,7 @@
       @foreach ($rooms as $r)
       <div class="col-md-3 d-flex align-items-stretch">
         <div class="card">
-          <img src="https://www.yucatan.com.mx/wp-content/uploads/2020/07/Lotto_5.jpeg" class="card-img-top" alt="...">
+          <img src="{{ asset($r->getPhoto()) }}" class="card-img-top" alt="...">
           <div class="card-body">
             <h5>{{ $r->name }}</h5>
             {{-- <h2 class="card-title"></h2> --}}
@@ -38,23 +38,60 @@
             <p class="card-text">{{ $r->description }}</p>
           </div>
           <div class="card-footer">
-            <div class="d-grid gap-2">
-              @if ($r->status == 3)
-                <a class="btn btn-success" href="{{ route('game.show', $r->id) }}">
-                  <strong><i class="fa fa-trophy text-warning m-2"></i> VER RESULTADOS</strong>
-                </a>
-              @else
-              @if ($r->selected)
-                <a class="btn btn-primary" href="{{ route('game.show', $r->id) }}">
-                  <strong><i class="fa fa-play text-warning m-2"></i> JUGAR</strong>
-                </a>
-                @else
-                  <a class="btn btn-dark" {{ $r->status == 1 ? 'disabled' : '' }} href="{{ route('game.show', $r->id) }}">
-                    <strong>JUGAR POR <i class="fab fa-gg-circle text-warning m-2"></i>{{ $r->getPrice() }}</strong>
+
+            @if ($r->type == 1)
+              <div class="d-grid gap-2">
+                @if ($r->status == 3)
+                  <a class="btn btn-success" href="{{ route('game.show', $r->id) }}">
+                    <strong><i class="fa fa-trophy text-warning m-2"></i> VER RESULTADOS</strong>
                   </a>
+                @else
+                @if ($r->selected)
+                  <a class="btn btn-primary" href="{{ route('game.show', $r->id) }}">
+                    <strong><i class="fa fa-play text-warning m-2"></i> JUGAR</strong>
+                  </a>
+                  @else
+
+                    <a class="btn btn-success" {{ $r->status == 1 ? 'disabled' : '' }} href="{{ route('game.show', $r->id) }}">
+                      <strong>JUGAR
+                        @if ($r->getPrice() == 0)
+                          GRATIS
+                        @else
+                          POR <img src="{{ asset('RoomGame.svg') }}" width="20" height="20" class="m-2" />{{ $r->getPrice()}}
+                        @endif
+                      </strong>
+                    </a>
+
+                  @endif
                 @endif
-              @endif
-            </div>
+              </div>
+            @else
+              <div class="d-grid gap-2">
+                {{-- @if ($r->status == 3)
+                  <a class="btn btn-success" href="{{ route('game.show', $r->id) }}">
+                    <strong><i class="fa fa-trophy text-warning m-2"></i> VER RESULTADOS</strong>
+                  </a>
+                @else --}}
+
+                  {{-- @if ($r->selected)
+                    <a class="btn btn-primary" href="{{ route('game.show', $r->id) }}">
+                      <strong><i class="fa fa-play text-warning m-2"></i> JUGAR</strong>
+                    </a>
+                  @else --}}
+                    <a class="btn btn-primary" {{ $r->status == 1 ? 'disabled' : '' }} href="{{ route('game.bank.show', $r->id) }}">
+                      <strong>JUGAR
+                        @if ($r->getPrice() == 0)
+                          GRATIS
+                        @else
+                          POR <img src="{{ asset('RoomGame.svg') }}" width="20" height="20" class="m-2" />{{ $r->getPrice()}}
+                        @endif
+                      </strong>
+                    </a>
+                  {{-- @endif --}}
+                {{-- @endif --}}
+              </div>
+            @endif
+
           </div>
         </div>
       </div>

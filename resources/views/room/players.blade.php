@@ -8,9 +8,6 @@
     @include('room._tabs_show')
     <div class="col-12 col-lg-8 col-xxl-9 d-flex">
       <div class="card flex-fill">
-        <div class="card-header">
-          {{-- <h5 class="card-title mb-0">Latest Projects</h5> --}}
-        </div>
         <div class="card-body">
           <table class="table table-hover">
             <thead>

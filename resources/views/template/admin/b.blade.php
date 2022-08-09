@@ -47,7 +47,7 @@
 		<nav id="sidebar" class="sidebar js-sidebar">
 			<div class="sidebar-content js-simplebar">
 				<a class="sidebar-brand" href="index.html">
-          <span class="align-middle">Edugestion Gamer</span>
+          <span class="align-middle">GameRoom 🎮 🕹️</span>
         </a>
 
 				<ul class="sidebar-nav">
@@ -146,7 +146,7 @@
 					<div class="row text-muted">
 						<div class="col-6 text-start">
 							<p class="mb-0">
-								<a class="text-muted" href="https://edugestion.cl/" target="_blank"><strong>Edugestion.cl</strong></a> &copy;
+								<a class="text-muted" href="https://bemtorres.win/" target="_blank"><strong>bemtorres.win</strong></a> &copy;
 							</p>
 						</div>
 						<div class="col-6 text-end">

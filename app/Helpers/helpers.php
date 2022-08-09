@@ -35,3 +35,5 @@ function helper_random_string_number($longitud) {
   for($i=0;$i < $longitud;$i++) $key .= $pattern[mt_rand(0,$max)];
   return $key;
 }
+
+const H_GAMEROOM_VERSION = '0.1.0';

@@ -20,7 +20,7 @@
                   <th>Correo</th>
                   <th>Nombre</th>
                   {{-- <th>Usuarios</th> --}}
-                  <th><i class="fab fa-gg-circle text-warning ms-2"></i> Credito</th>
+                  <th><img src="{{ asset('RoomGame.svg') }}" width="20" height="20" class="ms-2" />Credito</th>
                 </tr>
               </thead>
               <tbody>
@@ -39,7 +39,7 @@
                   {{-- <td>
                     <i class="fa fa-users"></i> {{ $c->cont_users }}
                   </td> --}}
-                  <td><i class="fab fa-gg-circle text-warning ms-2"></i> {{ $u->getCredit() }}</td>
+                  <td><img src="{{ asset('RoomGame.svg') }}" width="20" height="20" class="ms-2" /> {{ $u->getCredit() }}</td>
                   {{-- <td>
                     <span type="button" class="badge bg-{{ $c->active ? 'success' : 'danger' }}" data-bs-toggle="modal" data-bs-target="#newModal" data-id="{{ $c->id }}">
                       {{ $c->active ? 'Activo' : 'Desactivado' }}

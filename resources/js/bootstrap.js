@@ -53,5 +53,6 @@ window.iziToast = require('izitoast');
 require('sweetalert');
 require('./custom/double-request');
 require('chart.js');
+// require('bootstrap-icons');
 
 var spectrum = require('spectrum-colorpicker2/dist/spectrum.min.js');

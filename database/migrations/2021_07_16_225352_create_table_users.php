@@ -19,6 +19,7 @@ class CreateTableUsers extends Migration
             $table->string('password');
             $table->string('name');
             $table->string('phone')->nullable();
+            $table->json('config')->nullable();
             $table->integer('credit')->default(0);
             $table->boolean('admin')->default(false);
             $table->boolean('active')->default(true);

@@ -9,13 +9,9 @@
     <h1 class="h3 mb-3"><strong>Cupones</strong></h1>
     @include('cupon._tabs')
 
-
     <div class="row">
-      <div class="col-12 col-lg-8 col-xxl-9 d-flex">
+      <div class="col-12 col-lg-12 col-xxl-12 d-flex">
         <div class="card flex-fill">
-          <div class="card-header">
-            {{-- <h5 class="card-title mb-0">Latest Projects</h5> --}}
-          </div>
           <div class="card-body">
             <table class="table table-hover">
               <thead>
@@ -25,7 +21,10 @@
                   <th>Código</th>
                   <th>Password</th>
                   <th>Usuarios</th>
-                  <th><i class="fab fa-gg-circle text-warning ms-2"></i> Credito</th>
+                  <th>
+                    <img src="{{ asset('RoomGame.svg') }}" width="20" height="20" class="ms-2" />
+                    Credito
+                  </th>
                   <th></th>
                 </tr>
               </thead>
@@ -44,7 +43,7 @@
                     <i class="fa fa-users"></i> {{ $c->cont_users }}
                   </td>
                   <td>
-                    <i class="fab fa-gg-circle text-warning ms-2"></i>
+                    <img src="{{ asset('RoomGame.svg') }}" width="20" height="20" class="ms-2" />
                     {{ $c->getPrice() }}
                   </td>
                   <td>
@@ -59,7 +58,7 @@
           </div>
         </div>
       </div>
-      <div class="col-12 col-lg-4 col-xxl-3 d-flex">
+      {{-- <div class="col-12 col-lg-4 col-xxl-3 d-flex">
         <div class="card flex-fill w-100">
           <div class="card-header">
 
@@ -71,7 +70,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> --}}
     </div>
   </div>
 </main>

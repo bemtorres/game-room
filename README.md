@@ -1,44 +1,104 @@
-# Dinobox MINISHOP project
+<p align="center"><a href="https://bemtorres.win" target="_blank"><img src="https://raw.githubusercontent.com/bemtorres/game-room/develop/public/background_gameroom.png" width="600"></a></p>
 
-Laravel Framework 8.0
-VERSION PROJECT 2021.0
 
-#### Repositorio
+# GAMEROOM 🎮 🕹️
+Primer Sistema Contable <strong>Open Source</strong> para todo tipo de juegos
+
+Crea salas e invita a tus amigos a jugar utlizando como herramienta de gestión GAMEROOM
+
+# ¿Como jugar?
+
+## Sistema General
+
+- Mantendor de usuario
+- Carga masiva a través de un archivo excel
+- Creación de cupones
+- Sistema interno de GR Coins para ingresar a las salas
+- Mantenedor de Salas
+- Trofeos
+
+### 🪪 Sistema Loto 📇
+
+**Hay 10.000 cartones unicos de Loto disponibles**
+
+*Instrucciones:*
+- Juga al loto muy fácil, crea una sala e ingresa el costo para entrar.
+- Los jugadores podrán ingresar a la sala si cumplen con los requisitos, escogiendo el número de cartón
+- Una vez inicio el **Líder** deberá dictar los números y anotarlos en el panel administrativo del juego
+- Los jugadores deberán ir seleccionando el numero si corresponde a su cartón
+- Si cumpletas todos los números te aparecerá una opción para reclamar el premio
+- El **Líder** verificará y
+asignará el lugar que quedaste en la calificación
+
+### 🏦💰 Sistema de Banco 💰💳
+
+Has querido jugar algún juego de mesa que incluya un banco y no tienes los billetes. Está sala contiene un **microsistema bancarío** que te ayudará a
+ - 💰 Transferir dinero
+ - 💸 Solicitar dinero
+ - 💳 Pagar
+ - 📜 Ver historial de transacciones
+ - 🥸 Cambiar avatar
+ - 🥸 Cambiar nickname
+ - 🔑 Cambiar GR pass
+
+📱 Full Optimizado para jugar con el **celular**
+
+*Instrucciones:*
+- Crea una sala e ingresa el costo para entrar.
+- Puedes hacer pública la sala y compartir un link para que otras personas se inscriban e ingresen directo al banco
+- Eligirás a uno o más de uno de los jugadores como Banquero, el se encargará de enviar dinero a los jugadores
+- El Banco cuenta como **$10.000.000** a repartir
+- Los jugadores podrán ser este uso de dinero sólo en la sala
+
+
+## NOTA: 👀 No es dinero de verdad y queda bajo su responsabilidad el uso de este proyecto 👀
+
+
+# Instalación del Repositorio
+
 ```shell
-composer install
-```
+git clone https://github.com/bemtorres/game-room
+cd game-room
 
-Copy .env
-```shell
 cp .env.example .env
-```
 
-```shell
+composer install
+npm install
+npm run prod
 
 php artisan migrate:fresh --seed
 
+php artisan serve
 ```
+
 ## Users
 
 | TIPO  | username  | password  |
 |---|---|---|
-| Admin  | admin  | 123456  |
-| Usuario  | usuario1  | 123456 |
-
-### Inicial con forma de seed
-```shell
-php artisan storage:link
-composer dump-autoload
-
-php artisan migrate:fresh --seed
-```
-
-### Inicial laravel-mix mode dev
-```shell
-npm install
-npm run prod
-```
+| Admin  | admin@admin.cl  | 123456  |
+| Usuario  | usuario@gameroom.cl | 123456 |
 
 
-## estamos usando
-https://mdbootstrap.com/snippets/
+# Demostración
+
+## BANCO
+
+#### Historial
+<img src="https://raw.githubusercontent.com/bemtorres/game-room/develop/public/EXAMPLES/historial.png" width="300">
+
+#### Solicitud de pago
+<img src="https://raw.githubusercontent.com/bemtorres/game-room/develop/public/EXAMPLES/solicitud_pago.png" width="300">
+
+
+# Estamos usando
+- [free adminkit](https://adminkit.io/)
+- [bootstrap 5](https://getbootstrap.com/docs/5.0/getting-started/introduction/)
+- [iziToast](https://izitoast.marcelodolza.com/)
+- [spectrum-colorpicker2](https://seballot.github.io/spectrum/)
+- [datatables](https://datatables.net/)
+- [jquery3](https://seballot.github.io/spectrum/)
+
+
+## License
+
+The GameRoom is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

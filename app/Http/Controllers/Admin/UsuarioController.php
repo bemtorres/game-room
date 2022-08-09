@@ -21,7 +21,6 @@ class UsuarioController extends Controller
     $this->policy->admin();
 
     $usuarios = User::where('admin',false)->get();
-    // $rooms = Room::where('active',true)->get();
     return view('user.index',compact('usuarios'));
   }
 
@@ -29,7 +28,6 @@ class UsuarioController extends Controller
     $this->policy->admin();
 
     $usuarios = User::where('admin',true)->get();
-    // $rooms = Room::where('active',true)->get();
     return view('user.index',compact('usuarios'));
   }
 
@@ -51,7 +49,6 @@ class UsuarioController extends Controller
     $u = User::findOrFail($id);
     return view('user.show',compact('u'));
   }
-
 
   public function edit($id) {
     $this->policy->admin();
@@ -100,9 +97,7 @@ class UsuarioController extends Controller
     try {
       $u = User::findOrFail($id);
       $u->email = $request->input('email');
-      // $u->password = hash('sha256',$request->input('password'));
       $u->name = $request->input('name');
-      // $u->credit = $request->input('credit',0);
       $u->phone = $request->input('phone');
       $u->admin = $request->input('admin') ? true : false;
       $u->update();
@@ -202,9 +197,20 @@ class UsuarioController extends Controller
     }
   }
 
-  // public function game($id) {
-  //   $this->policy->admin();
-  //   $u = User::findOrFail($id);
-  //   return view('user.game',compact('u'));
-  // }
+
+  public function game($id) {
+    $this->policy->admin();
+
+    $u = User::findOrFail($id);
+    return view('user.show',compact('u'));
+  }
+
+  // API Collapse
+  public function collapse() {
+    $u = User::find(current_user()->id);
+    $config = $u->config;
+    $config['page_collapse'] = !$u->getPageCollapse();
+    $u->config = $config;
+    $u->update();
+  }
 }

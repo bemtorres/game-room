@@ -15,7 +15,7 @@
             <p>
               SALDO ACTUAL
               <span class="fs-4 ms-2">
-                  <span class="btn-label"><i class="fab fa-gg-circle text-warning"></i></span>
+                  <span class="btn-label"><img src="{{ asset('RoomGame.svg') }}" width="20" height="20" class="ms-2" /></span>
                   {{ $u->getCredit() }}
               </span>
             </p>

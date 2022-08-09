@@ -18,8 +18,10 @@ class AuthController extends Controller
 
   public function login(Request $request) {
     try {
+
       $u = User::where('email',$request->input('email'))->firstOrFail();
       $pass = hash('sha256', $request->input('password'));
+
       if($u->password==$pass){
 
         Auth::guard('usuario')->loginUsingId($u->id);
@@ -29,7 +31,6 @@ class AuthController extends Controller
         return back()->with('info','Error. Intente nuevamente.');
       }
     } catch (\Throwable $th) {
-      return $th;
       return back()->with('info','Error. Intente nuevamente.');
     }
   }

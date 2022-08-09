@@ -1,8 +1,8 @@
-<nav id="sidebar" class="sidebar js-sidebar">
+<nav id="sidebar" class="sidebar js-sidebar {{ current_user()->getPageCollapse() ? 'collapsed' : '' }}">
   <div class="sidebar-content js-simplebar">
-    <a class="sidebar-brand" href="/home">
-      <span class="align-middle">Edugestion</span>
-    </a>
+    <span class="sidebar-brand">
+      <span class="align-middle">🕹️ GameRoom 🎮</span>
+    </span>
     <ul class="sidebar-nav">
       @if (current_user()->admin)
       <li class="sidebar-header">
@@ -47,7 +47,7 @@
 
       <li class="sidebar-item {{ activeTab("cuenta*") }}">
         <a class="sidebar-link" href="{{ route('cuenta') }}">
-          <i class="align-middle fab fa-2x fa-gg-circle text-warning ms-1"></i>
+          <img src="{{ asset('RoomGame.svg') }}" width="30" height="30" class="align-middle me-1" />
           <span class="align-middle">Mi cuenta</span>
         </a>
       </li>
@@ -67,26 +67,10 @@
     </ul>
     <div class="sidebar-cta">
       <div class="sidebar-cta-content">
-        {{-- <strong class="d-inline-block mb-2">Sistema</strong>
-        <div class="mb-3 text-sm">
-          Are you looking for more components? Check out our premium version.
-          <button class="btn btn-danger btn-sm">asdad</button>
-        </div> --}}
         <div class="d-grid">
           <a href="/" class="btn btn-danger btn-sm"><strong>SALIR</strong></a>
         </div>
       </div>
     </div>
-    {{-- <div class="sidebar-cta">
-      <div class="sidebar-cta-content">
-        <strong class="d-inline-block mb-2">Sistema</strong>
-        <div class="mb-3 text-sm">
-          Are you looking for more components? Check out our premium version.
-        </div>
-        <div class="d-grid">
-          <a href="upgrade-to-pro.html" class="btn btn-primary">EDUGESTION</a>
-        </div>
-      </div>
-    </div> --}}
   </div>
 </nav>

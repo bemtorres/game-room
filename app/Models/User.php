@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\Json;
 use App\Services\Currency;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -15,6 +16,10 @@ class User extends Authenticatable
   use HasFactory;
   // use SoftDeletes;
   use Notifiable;
+
+  protected $casts = [
+    'config' => Json::class,
+  ];
 
   protected $table = 'users';
 
@@ -35,6 +40,10 @@ class User extends Authenticatable
 
   public function trofeos(){
     return $this->hasMany(Claim::class,'claim_user_id','id')->orderBy('created_at','desc');
+  }
+
+  public function getPageCollapse() {
+    return ($this->config['page_collapse'] ?? 'x') == 'active' ? true : false;
   }
 
   // public function cupones(){

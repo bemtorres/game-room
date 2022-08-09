@@ -10,16 +10,26 @@
 
 
 <ul class="nav nav-tabs">
-  <li class="nav-item">
-    <a class="nav-link {{ activeTab("rooms/$r->id") }}" href="{{ route('rooms.show',$r->id) }}">
-      <strong>{{ $r->name }}</strong>
-    </a>
-  </li>
+  @if ($r->type==1)
+    <li class="nav-item">
+      <a class="nav-link {{ activeTab("rooms/$r->id") }}" href="{{ route('rooms.show',$r->id) }}">
+        <strong>{{ $r->name }}</strong>
+      </a>
+    </li>
+  @else
+    <li class="nav-item">
+      <a class="nav-link {{ activeTab("rooms_bank/$r->id") }}" href="{{ route('rooms.bank.show',$r->id) }}">
+        <strong>{{ $r->name }}</strong>
+      </a>
+    </li>
+  @endif
   <li class="nav-item">
     <a class="nav-link {{ activeTab("rooms/$r->id/edit") }}" href="{{ route('rooms.edit',$r->id) }}">
       <strong>EDITAR</strong>
     </a>
   </li>
+
+  @if ($r->type==1)
   <li class="nav-item">
     <a class="nav-link {{ activeTab("room/$r->id/players") }}" href="{{ route('room.players',$r->id) }}">
       <strong>JUGADORES</strong>
@@ -30,4 +40,20 @@
       <strong>SOLICITUDES</strong>
     </a>
   </li>
+  @else
+  <li class="nav-item">
+    <a class="nav-link {{ activeTab("rooms_bank/$r->id/players") }}" href="{{ route('rooms.bank.players',$r->id) }}">
+      <strong>JUGADORES</strong>
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link {{ activeTab("rooms_bank/$r->id/transactions") }}" href="{{ route('rooms.bank.transactions',$r->id) }}">
+      <strong>TRANSACCIONES</strong>
+    </a>
+  </li>
+
+
+  @endif
+
+
 </ul>
