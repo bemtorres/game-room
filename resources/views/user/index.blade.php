@@ -7,7 +7,7 @@
   <div class="container-fluid p-0">
     @include('user._tabs')
     <div class="row">
-      <div class="col-12 col-lg-8 col-xxl-9 d-flex">
+      <div class="col-12 col-lg-12 col-xxl-12 d-flex">
         <div class="card flex-fill">
           {{-- <div class="card-header"> --}}
             {{-- <h5 class="card-title mb-0">Latest Projects</h5> --}}
@@ -17,8 +17,8 @@
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>Correo</th>
                   <th>Nombre</th>
+                  <th>Correo</th>
                   {{-- <th>Usuarios</th> --}}
                   <th><img src="{{ asset('RoomGame.svg') }}" width="20" height="20" class="ms-2" />Credito</th>
                 </tr>
@@ -29,16 +29,10 @@
                   <th>{{ $u->id }}</th>
                   <td>
                     <a href="{{ route('usuarios.show',$u->id) }}">
-                      {{ $u->email }}
+                      {{ $u->name }}
                     </a>
                   </td>
-                  <td>
-                    {{ $u->name }}
-                  </td>
-                  {{-- <td>{{ $c->password }}</td> --}}
-                  {{-- <td>
-                    <i class="fa fa-users"></i> {{ $c->cont_users }}
-                  </td> --}}
+                  <td>{{ $u->email }}</td>
                   <td><img src="{{ asset('RoomGame.svg') }}" width="20" height="20" class="ms-2" /> {{ $u->getCredit() }}</td>
                   {{-- <td>
                     <span type="button" class="badge bg-{{ $c->active ? 'success' : 'danger' }}" data-bs-toggle="modal" data-bs-target="#newModal" data-id="{{ $c->id }}">
@@ -49,19 +43,6 @@
                 @endforeach
               </tbody>
             </table>
-          </div>
-        </div>
-      </div>
-      <div class="col-12 col-lg-4 col-xxl-3 d-flex">
-        <div class="card flex-fill w-100">
-          <div class="card-header">
-
-            <h5 class="card-title mb-0">Monthly Sales</h5>
-          </div>
-          <div class="card-body d-flex w-100">
-            <div class="align-self-center chart chart-lg">
-              <canvas id="chartjs-dashboard-bar"></canvas>
-            </div>
           </div>
         </div>
       </div>

@@ -19,9 +19,9 @@
       <strong>CREDITOS</strong>
     </a>
   </li>
-  <li class="nav-item">
+  {{-- <li class="nav-item">
     <a class="nav-link {{ activeTab("usuarios/$u->id/game") }}" href="{{ route('user.game',$u->id) }}">
       <strong>GAME</strong>
     </a>
-  </li>
+  </li> --}}
 </ul>

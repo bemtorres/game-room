@@ -13,7 +13,7 @@
       SALDO ACTUAL
       <span class="fs-4 ms-2">
           <span class="btn-label">
-            <img src="{{ asset('RoomGame.svg') }}" width="20" height="20" class="ms-2" />
+            <img src="{{ asset('RoomGame.svg') }}" width="30" height="30" class="ms-2" />
           </span>
           {{ current_user()->getCredit() }}
       </span>
